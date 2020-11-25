@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+import TestComponent from './TestComponent';
+
 
 class App extends Component {
     state = {  }
@@ -13,6 +15,7 @@ class App extends Component {
             <div className="App">
                 <Navbar/>
                 <BabylonCanvas/>
+                <TestComponent/>
             </div>
         )
     }

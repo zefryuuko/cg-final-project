@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as BABYLON from "babylonjs";
+import GlobalVariables from './GlobalVariables';
 
 var scene;
 var boxMesh;
@@ -17,7 +18,7 @@ class BabylonCanvas extends Component {
         this.engine = new BABYLON.Engine(this.canvas, true);
 
         //Create Scene
-        scene = new BABYLON.Scene(this.engine);
+        GlobalVariables.scene = new BABYLON.Scene(this.engine);
 
         //--Light---
         this.addLight();
@@ -36,11 +37,11 @@ class BabylonCanvas extends Component {
 
         // Render Loop
         this.engine.runRenderLoop(() => {
-            scene.render();
+            GlobalVariables.scene.render();
         });
 
         //Animation
-        scene.registerBeforeRender(() => {
+        GlobalVariables.scene.registerBeforeRender(() => {
             boxMesh.rotation.y += 0.01;
             boxMesh.rotation.x += 0.01;
         });

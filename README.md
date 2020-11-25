@@ -1,2 +1,4 @@
-# cg-final-project
-Computer Graphics Final Project Repository
+# Computer Graphics Final Project
+
+reeeeee send help pls
+

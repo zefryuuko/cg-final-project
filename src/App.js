@@ -9,13 +9,15 @@ import TestComponent from './TestComponent';
 
 class App extends Component {
     state = {  }
-  
+
     render() {
         return (
             <div className="App">
                 <Navbar/>
-                <BabylonCanvas/>
-                <TestComponent/>
+                <div class="AppContainer">
+                    <BabylonCanvas/>
+                </div>
+                <TestComponent posX="0" posY="0" posZ="0"/>
             </div>
         )
     }

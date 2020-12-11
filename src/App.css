@@ -1,3 +1,7 @@
+body {
+    background: #15103b;
+}
+
 .renderCanvas {
     min-width: 1280px;
     min-height: 720px;

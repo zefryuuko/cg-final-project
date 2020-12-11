@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import * as BABYLON from "babylonjs";
-import GlobalVariables from './GlobalVariables';
+import Globals from './Globals';
 
+// Temp definitions, delete later
 var scene;
 var boxMesh;
-/**
- * Example temnplate of using Babylon JS with React
- */
+
 class BabylonCanvas extends Component {
     constructor(props) {
         super(props);
@@ -14,36 +13,30 @@ class BabylonCanvas extends Component {
     }
 
     componentDidMount = () => {
-        // start ENGINE
+        // Initialize scene and engine
         this.engine = new BABYLON.Engine(this.canvas, true);
+        Globals.scene = new BABYLON.Scene(this.engine);
 
-        //Create Scene
-        GlobalVariables.scene = new BABYLON.Scene(this.engine);
-
-        //--Light---
+        // Intitialize the scene with the required elements
         this.addLight();
-
-        //--Camera---
         this.addCamera();
+        this.addSkybox();
 
-        //--Meshes---
-        this.addModels();
-
-        //--Ground---
-        this.addGround();
+        // this.addModels();
+        // this.addGround();
 
         // Add Events
         window.addEventListener("resize", this.onWindowResize, false);
 
         // Render Loop
         this.engine.runRenderLoop(() => {
-            GlobalVariables.scene.render();
+            Globals.scene.render();
         });
 
-        //Animation
-        GlobalVariables.scene.registerBeforeRender(() => {
-            boxMesh.rotation.y += 0.01;
-            boxMesh.rotation.x += 0.01;
+        // Handle animations and per frame calculations
+        // Simillar to Update() function in Unity
+        Globals.scene.registerBeforeRender(() => {
+
         });
     };
 
@@ -55,31 +48,43 @@ class BabylonCanvas extends Component {
         this.engine.resize();
     };
 
-    /**
-     * Add Lights
-     */
     addLight = () => {
-        //---------- LIGHT---------------------
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
         var light = new BABYLON.HemisphericLight(
             "light1",
             new BABYLON.Vector3(0, 10, 0),
-            scene
+            Globals.scene
         );
     };
 
-    /**
-     * Add Camera
-     */
+    addSkybox = () => {
+        var photoSphere = BABYLON.Mesh.CreateSphere("skybox", 16.0, 50.0, scene);
+
+        var skyboxMaterial = new BABYLON.StandardMaterial("skyboxMaterial", scene);
+        skyboxMaterial.emissiveTexture = new BABYLON.Texture(
+            "/assets/other/skybox.png",
+            Globals.scene,
+            1,
+            0
+        );
+        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+        skyboxMaterial.emissiveTexture.uOffset = -Math.PI / 2; // left-right
+        skyboxMaterial.emissiveTexture.uOffset = 0.1; // up-down
+        skyboxMaterial.backFaceCulling = false;
+
+        photoSphere.material = skyboxMaterial;
+    }
+
     addCamera = () => {
         // ---------------ArcRotateCamera or Orbit Control----------
         var camera = new BABYLON.ArcRotateCamera(
-            "Camera",
+            "MainCamera",
             Math.PI / 2,
             Math.PI / 4,
             4,
             BABYLON.Vector3.Zero(),
-            scene
+            Globals.scene
         );
         camera.inertia = 0;
         camera.angularSensibilityX = 250;
@@ -90,9 +95,6 @@ class BabylonCanvas extends Component {
         camera.setPosition(new BABYLON.Vector3(5, 5, 5));
     };
 
-    /**
-     * Create Stage and Skybox
-     */
     addGround = () => {
         // Create a built-in "ground" shape.
         var ground = BABYLON.MeshBuilder.CreateGround(
@@ -106,27 +108,8 @@ class BabylonCanvas extends Component {
             scene
         );
         ground.material = groundMaterial;
-
-        //Add SkyBox
-        var photoSphere = BABYLON.Mesh.CreateSphere("skyBox", 16.0, 50.0, scene);
-        var skyboxMaterial = new BABYLON.StandardMaterial("smat", scene);
-        skyboxMaterial.emissiveTexture = new BABYLON.Texture(
-            "assets/skybox.jpeg",
-            scene,
-            1,
-            0
-        );
-        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-        skyboxMaterial.emissiveTexture.uOffset = -Math.PI / 2; // left-right
-        skyboxMaterial.emissiveTexture.uOffset = 0.1; // up-down
-        skyboxMaterial.backFaceCulling = false;
-        photoSphere.material = skyboxMaterial;
     };
 
-    /**
-     * Add Models
-     */
     addModels = () => {
         // Add BOX
         boxMesh = BABYLON.MeshBuilder.CreateBox(

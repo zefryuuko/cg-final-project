@@ -93,6 +93,7 @@ class BabylonCanvas extends Component {
         // This attaches the camera to the canvas
         camera.attachControl(this.canvas, true);
         camera.setPosition(new BABYLON.Vector3(7, 7, 7));
+        camera.beta = Math.PI / 2.5;
     };
 
     addGround = () => {

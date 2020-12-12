@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
 import TestComponent from '../../TestComponent';
+import StoneBlock from '../gameObjects/StoneBlock';
+import GrassBlock from '../gameObjects/GrassBlock';
 
 class LevelOne extends Component {
     constructor(props){
@@ -19,11 +21,11 @@ class LevelOne extends Component {
                 [0, 1, 1, 1, 0],
             ],
             [   // Second
-                [0, 0, 1, 0, 0],
-                [0, 1, 0, 1, 0],
-                [1, 0, 0, 0, 1],
-                [0, 1, 0, 1, 0],
-                [0, 0, 1, 0, 0],
+                [0, 0, 2, 0, 0],
+                [0, 2, 0, 2, 0],
+                [2, 0, 0, 0, 2],
+                [0, 2, 0, 2, 0],
+                [0, 0, 2, 0, 0],
             ]
         ]
         this.yOffset = 1;
@@ -41,7 +43,9 @@ class LevelOne extends Component {
             case ENVIRONMENT.NONE:
                 return <div></div>
             case ENVIRONMENT.STONE:
-                return <TestComponent posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+                return <StoneBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.GRASS:
+                    return <GrassBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             default:
                 return <div></div>;
         }

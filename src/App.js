@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import BabylonCanvas from './BabylonCanvas';
 import Navbar from './components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,13 +13,21 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <Navbar/>
-                <div class="AppContainer">
-                    <BabylonCanvas/>
+            <Router>
+                <div className="App">
+                    <Navbar/>
+                    <div className="AppContainer">
+                        <BabylonCanvas/>
+                        <Link to="/level-1">Load Level 1</Link>
+                    </div>
+                    <Switch className="GameObjectContainer">
+                        <Route path="/level-1">
+                            <TestComponent/>
+                        </Route>
+                    </Switch>
+                    {/* <TestComponent posX="0" posY="0" posZ="0"/> */}
                 </div>
-                <TestComponent posX="0" posY="0" posZ="0"/>
-            </div>
+            </Router>
         )
     }
 }

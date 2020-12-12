@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import * as BABYLON from "babylonjs";
 import Globals from './Globals';
 
-let boxMesh;
-
 class TestComponent extends Component {
     constructor(props) {
         super(props);
+        this.boxMesh = undefined;
         this.state = {  }
     }
 
@@ -15,24 +14,32 @@ class TestComponent extends Component {
     }
 
     componentWillUnmount() {
-        boxMesh.dispose();
+        this.boxMesh.dispose();
     }
 
     addModels = () => {
+        let posX = this.props.posX ? this.props.posX : 0;
+        let posY = this.props.posY ? this.props.posY : 0;
+        let posZ = this.props.posZ ? this.props.posZ : 0;
+
         // Add BOX
-        boxMesh = BABYLON.MeshBuilder.CreateBox(
-            "box2",
+        this.boxMesh = BABYLON.MeshBuilder.CreateBox(
+            `testComponent_${posX},${posY},${posZ}`,
             { height: 1, width: 1, depth: 1 },
             Globals.scene
         );
-        boxMesh.position.y = 0;
+
+        // Position the mesh based on the component props
+        this.boxMesh.position.x = posX;
+        this.boxMesh.position.y = posY;
+        this.boxMesh.position.z = posZ;
 
         var woodMaterial = new BABYLON.StandardMaterial("wood", Globals.scene);
         woodMaterial.diffuseTexture = new BABYLON.Texture(
             "./assets/portal_cube.png",
             Globals.scene
         );
-        boxMesh.material = woodMaterial;
+        this.boxMesh.material = woodMaterial;
 
         const frameRate = 60;
         const spawnAnimation = new BABYLON.Animation(
@@ -54,8 +61,8 @@ class TestComponent extends Component {
         });
         spawnAnimation.setKeys(keyFrames);
 
-        boxMesh.animations.push(spawnAnimation);
-        Globals.scene.beginAnimation(boxMesh, 0, 0.3 * frameRate, false);
+        this.boxMesh.animations.push(spawnAnimation);
+        Globals.scene.beginAnimation(this.boxMesh, 0, 0.3 * frameRate, false);
     };
 
     render() { 

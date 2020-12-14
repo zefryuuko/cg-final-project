@@ -11,12 +11,12 @@ class BabylonCanvas extends Component {
         super(props);
         this.state = { useWireFrame: false, shouldAnimate: false };
     }
-
-    componentDidMount = () => {
+    
+    componentDidMount = () => {        
         // Initialize scene and engine
         this.engine = new BABYLON.Engine(this.canvas, true);
         Globals.scene = new BABYLON.Scene(this.engine);
-
+        
         // Intitialize the scene with the required elements
         this.addLight();
         this.addCamera();
@@ -27,6 +27,7 @@ class BabylonCanvas extends Component {
 
         // Add Events
         window.addEventListener("resize", this.onWindowResize, false);
+        window.addEventListener("keydown", this.onKeydownEvent);
 
         // Render Loop
         this.engine.runRenderLoop(() => {
@@ -36,7 +37,7 @@ class BabylonCanvas extends Component {
         // Handle animations and per frame calculations
         // Simillar to Update() function in Unity
         Globals.scene.registerBeforeRender(() => {
-
+            
         });
     };
 
@@ -47,6 +48,19 @@ class BabylonCanvas extends Component {
     onWindowResize = event => {
         this.engine.resize();
     };
+
+    onKeydownEvent = event => {
+        switch(event.keyCode) {
+            case 219: // [
+                Globals.scene.debugLayer.show();
+                break;
+            case 221: // ]
+                Globals.scene.debugLayer.hide();
+                break;
+            default:
+                break;
+        }
+    } 
 
     addLight = () => {
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.

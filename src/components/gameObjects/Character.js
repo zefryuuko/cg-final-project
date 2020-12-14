@@ -20,6 +20,8 @@ class Character extends Component {
         // Animations
         this.animationSpeed = 0.5;
         this.turnLeftAnimation = undefined;
+        this.idleAnimation = undefined;
+        this.walkingAnimation = undefined;
 
         // Put a global reference to this object
         Globals.character = this;
@@ -32,6 +34,7 @@ class Character extends Component {
     componentWillUnmount = () => {
         Globals.character = undefined;
         this.mesh.dispose();
+        this.idleAnimation = this.walkingAnimation = null;
     }
     
     createMesh = () => {
@@ -62,9 +65,11 @@ class Character extends Component {
             "/assets/obj/",
             "character_running.glb",
             Globals.scene,
-            (meshes) => {               
-                // Expose the meshes to the outside world
+            (meshes, particleSystem, skeleton, animationGroups) => {               
+                // Expose the meshes and animations to the outside world
                 this.characterModelMeshes = meshes;
+                this.idleAnimation = animationGroups[0];
+                this.walkingAnimation = animationGroups[1];
                 
                 // Modify mesh properties
                 meshes.forEach(mesh => {
@@ -111,10 +116,14 @@ class Character extends Component {
         this.mesh.animations.push(walkAnimation);
 
         Globals.scene.beginAnimation(this.mesh, 0, this.animationSpeed * Globals.framerate, false);
-
-
-        // let runningAnimation = Globals.scene.getAnimationGroupByName("Running");
-        // runningAnimation.stop();
+        this.idleAnimation.stop();
+        this.walkingAnimation.start(false, 2.0, this.walkingAnimation.from, this.walkingAnimation.to, false);
+        
+        // Stop animation after finished walking
+        setTimeout(() => {
+            this.walkingAnimation.stop();
+            this.idleAnimation.start(true, 1.0, this.idleAnimation.from, this.idleAnimation.to, false);
+        }, this.animationSpeed * 1000);
     }
 
     turnLeft = () => {
@@ -186,7 +195,7 @@ class Character extends Component {
         Globals.scene.beginAnimation(this.mesh, 0, this.animationSpeed * Globals.framerate, false);
     }
     
-    render() {
+    render = () => {
         return (
             <div>
                 <button onClick={this.walk}>PRESS ME DADDY</button>

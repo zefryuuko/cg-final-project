@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
-import TestComponent from '../../TestComponent';
 import StoneBlock from '../gameObjects/StoneBlock';
 import GrassBlock from '../gameObjects/GrassBlock';
 import Character from '../gameObjects/Character';
@@ -60,7 +59,7 @@ class LevelOne extends Component {
             case ENVIRONMENT.STONE:
                 return <StoneBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             case ENVIRONMENT.GRASS:
-                    return <GrassBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+                return <GrassBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             default:
                 return <div></div>;
         }
@@ -88,7 +87,6 @@ class LevelOne extends Component {
                     })
                 }
                 <Character posX={0} posY={1} posZ={0}/>
-                {/* <TestComponent></TestComponent> */}
             </div>
         )
     }

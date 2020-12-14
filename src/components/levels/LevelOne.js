@@ -3,6 +3,7 @@ import ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
 import TestComponent from '../../TestComponent';
 import StoneBlock from '../gameObjects/StoneBlock';
 import GrassBlock from '../gameObjects/GrassBlock';
+import Character from '../gameObjects/Character';
 
 class LevelOne extends Component {
     constructor(props){
@@ -86,6 +87,8 @@ class LevelOne extends Component {
                         } </div>
                     })
                 }
+                <Character posX={0} posY={1} posZ={0}/>
+                {/* <TestComponent></TestComponent> */}
             </div>
         )
     }

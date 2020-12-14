@@ -40,34 +40,39 @@ class TestComponent extends Component {
             Globals.scene
         );
         this.boxMesh.material = woodMaterial;
+    };
 
+    turnLeft = () => {
         const frameRate = 60;
         const spawnAnimation = new BABYLON.Animation(
             "spawnAnimationspawnAnimation", 
-            "scaling", 
+            "position.y", 
             frameRate, 
-            BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+            BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
         );
         
         const keyFrames = [];
         keyFrames.push({
             frame: 0,
-            value: new BABYLON.Vector3(0, 0, 0),
+            value: this.boxMesh.position.y,
         });
         keyFrames.push({
             frame: 0.3 * frameRate,
-            value: new BABYLON.Vector3(1, 1 ,1),
+            value: this.boxMesh.position.y + 1,
         });
         spawnAnimation.setKeys(keyFrames);
 
         this.boxMesh.animations.push(spawnAnimation);
         Globals.scene.beginAnimation(this.boxMesh, 0, 0.3 * frameRate, false);
-    };
+    }
 
     render() { 
         return ( 
-            <div className="TestComponent"></div>
+            <div className="TestComponent">
+                <button onClick={this.turnLeft}>CUBE Turn Left</button>
+            </div>
+            
          );
     }
 }

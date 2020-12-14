@@ -5,12 +5,15 @@ import Globals from '../../Globals';
 class Character extends Component {
     constructor(props) {
         super(props);
+
+        // Character
         this.mesh = undefined;
         this.characterModel = undefined;
         this.characterModelMeshes = undefined;
+        this.characterFaceDirection = 0;    // Value represents N E S W
         
         // Object position offset
-        this.xOffset = 0.25;
+        this.xOffset = 0;
         this.yOffset = -0.5;
         this.zOffset = 0;
 
@@ -77,14 +80,50 @@ class Character extends Component {
         );
     }
 
-    moveCharacter = () => {
-        this.mesh.position.x += 1;
+    walk = () => {
+        // Determine the move axis and move direction
+        const moveAxis = this.characterFaceDirection % 2 === 0 ? "z" : "x";
+        const moveDirection = this.characterFaceDirection >=2 ? 1 : -1;
+
+        const walkAnimation = new BABYLON.Animation(
+            "characterTurnleft",
+            `position.${moveAxis}`,
+            Globals.framerate,
+            BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+        );
+
+        const walkKeyframes = [];
+        walkKeyframes.push({
+            frame: 0,
+            value: moveAxis === "x" ? this.mesh.position.x : this.mesh.position.z
+        });
+        walkKeyframes.push({
+            frame: this.animationSpeed * Globals.framerate,
+            value: (moveAxis === "x" ? this.mesh.position.x : this.mesh.position.z) + moveDirection
+        });
+
+        walkAnimation.setKeys(walkKeyframes);
+
+        // Pop the last animation before adding another one
+        if (this.mesh.animations.length > 0)
+            this.mesh.animations.pop();
+        this.mesh.animations.push(walkAnimation);
+
+        Globals.scene.beginAnimation(this.mesh, 0, this.animationSpeed * Globals.framerate, false);
+
+
         // let runningAnimation = Globals.scene.getAnimationGroupByName("Running");
         // runningAnimation.stop();
     }
 
     turnLeft = () => {
-        console.log(this.mesh);
+        // Update the direction of the character
+        if (this.characterFaceDirection === 0)
+            this.characterFaceDirection = 3;
+        else
+            this.characterFaceDirection = Math.abs((this.characterFaceDirection - 1) % 4);
+        console.log(`Rotating player to ${this.characterFaceDirection}`);
 
         const turnLeftAnimation = new BABYLON.Animation(
             "characterTurnleft",
@@ -101,7 +140,7 @@ class Character extends Component {
         });
         turnLeftKeyframes.push({
             frame: this.animationSpeed * Globals.framerate,
-            value: this.mesh.rotation.y + Math.PI/2
+            value: this.mesh.rotation.y - Math.PI/2
         });
 
         turnLeftAnimation.setKeys(turnLeftKeyframes);
@@ -113,12 +152,46 @@ class Character extends Component {
 
         Globals.scene.beginAnimation(this.mesh, 0, this.animationSpeed * Globals.framerate, false);
     }
+
+    turnRight = () => {
+        // Update the direction of the character
+        this.characterFaceDirection = Math.abs((this.characterFaceDirection + 1) % 4);
+        console.log(`Rotating player to ${this.characterFaceDirection}`);
+
+        const turnRightAnimation = new BABYLON.Animation(
+            "characterTurnleft",
+            "rotation.y",
+            Globals.framerate,
+            BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+        );
+
+        const turnRightKeyframes = [];
+        turnRightKeyframes.push({
+            frame: 0,
+            value: this.mesh.rotation.y
+        });
+        turnRightKeyframes.push({
+            frame: this.animationSpeed * Globals.framerate,
+            value: this.mesh.rotation.y + Math.PI/2
+        });
+
+        turnRightAnimation.setKeys(turnRightKeyframes);
+        
+        // Pop the last animation before adding another one
+        if (this.mesh.animations.length > 0)
+            this.mesh.animations.pop();
+        this.mesh.animations.push(turnRightAnimation);
+
+        Globals.scene.beginAnimation(this.mesh, 0, this.animationSpeed * Globals.framerate, false);
+    }
     
     render() {
         return (
             <div>
-                <button onClick={this.moveCharacter}>PRESS ME DADDY</button>
+                <button onClick={this.walk}>PRESS ME DADDY</button>
                 <button onClick={this.turnLeft}>Turn Left</button>
+                <button onClick={this.turnRight}>Turn Right</button>
             </div>
         )
     }

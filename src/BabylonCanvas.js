@@ -10,6 +10,8 @@ class BabylonCanvas extends Component {
     constructor(props) {
         super(props);
         this.state = { useWireFrame: false, shouldAnimate: false };
+        this.light = undefined;
+        this.arcRotateCamera = undefined;
     }
     
     componentDidMount = () => {        
@@ -64,9 +66,9 @@ class BabylonCanvas extends Component {
 
     addLight = () => {
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
-        var light = new BABYLON.HemisphericLight(
+        this.light = new BABYLON.HemisphericLight(
             "light1",
-            new BABYLON.Vector3(0, 10, 0),
+            new BABYLON.Vector3(0, -1, 0),
             Globals.scene
         );
     };
@@ -92,7 +94,7 @@ class BabylonCanvas extends Component {
 
     addCamera = () => {
         // ---------------ArcRotateCamera or Orbit Control----------
-        var camera = new BABYLON.ArcRotateCamera(
+        this.arcRotateCamera = new BABYLON.ArcRotateCamera(
             "MainCamera",
             Math.PI / 2,
             Math.PI / 4,
@@ -105,9 +107,9 @@ class BabylonCanvas extends Component {
         // camera.angularSensibilityY = 250;
 
         // This attaches the camera to the canvas
-        camera.attachControl(this.canvas, true);
-        camera.setPosition(new BABYLON.Vector3(7, 7, 7));
-        camera.beta = Math.PI / 2.5;
+        this.arcRotateCamera.attachControl(this.canvas, true);
+        this.arcRotateCamera.setPosition(new BABYLON.Vector3(7, 7, 7));
+        this.arcRotateCamera.beta = Math.PI / 2.5;
     };
 
     addGround = () => {

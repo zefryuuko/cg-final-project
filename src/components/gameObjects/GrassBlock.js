@@ -25,7 +25,7 @@ class GrassBlock extends Component {
 
         // Create mesh
         this.mesh = BABYLON.MeshBuilder.CreateBox(
-            `stoneBlock_${posX},${posY},${posZ}`,
+            `grassBlock_${posX},${posY},${posZ}`,
             { height: 1, width: 1, depth: 1 },
             Globals.scene
         );

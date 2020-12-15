@@ -9,7 +9,7 @@ import './App.css';
 // Levels
 import LevelOne from './components/levels/LevelOne';
 
-import TestComponent from './TestComponent';
+// import TestComponent from './TestComponent';
 
 
 class App extends Component {

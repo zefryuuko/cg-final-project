@@ -1,6 +1,6 @@
 # Computer Graphics Final Project
 
-Live Demo: (https://zefryuuko.github.io/cg-final-project)
+Live Demo: https://zefryuuko.github.io/cg-final-project
 
 reeeeee send help pls
 

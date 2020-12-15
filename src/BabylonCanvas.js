@@ -78,7 +78,7 @@ class BabylonCanvas extends Component {
 
         var skyboxMaterial = new BABYLON.StandardMaterial("skyboxMaterial", scene);
         skyboxMaterial.emissiveTexture = new BABYLON.Texture(
-            "/assets/other/skybox.png",
+            "assets/other/skybox.png",
             Globals.scene,
             1,
             0

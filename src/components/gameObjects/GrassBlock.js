@@ -40,7 +40,7 @@ class GrassBlock extends Component {
         let material = new BABYLON.StandardMaterial("GrassBlockMaterial", Globals.scene);
         
         // Use CubeTexture to map the texture to each face
-        material.reflectionTexture = new BABYLON.CubeTexture("/assets/textures/grass/grass", Globals.scene);
+        material.reflectionTexture = new BABYLON.CubeTexture("assets/textures/grass/grass", Globals.scene);
         material.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
         material.reflectionTexture.updateSamplingMode(BABYLON.Texture.NEAREST_NEAREST_MIPLINEAR);
         material.diffuseColor = new BABYLON.Color3(0, 0, 0);

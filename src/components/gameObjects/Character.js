@@ -62,7 +62,7 @@ class Character extends Component {
         // Load mesh
         this.characterModel = BABYLON.SceneLoader.ImportMesh(
             "",
-            "/assets/obj/",
+            "assets/obj/",
             "character_running.glb",
             Globals.scene,
             (meshes, particleSystem, skeleton, animationGroups) => {               

@@ -22,14 +22,14 @@ class App extends Component {
                     <Navbar/>
                     <div className="AppContainer">
                         <BabylonCanvas/>
-                        <Link to="/">Load Main Menu</Link>
-                        <Link to="/level-1">Load Level 1</Link>
+                        <Link to="/cg-final-project/">Load Main Menu</Link>
+                        <Link to="/cg-final-project/level-1">Load Level 1</Link>
                     </div>
                     <Switch className="GameObjectContainer">
                         {/* <Route path="/"> */}
                             {/* Create main menu scene */}
                         {/* </Route> */}
-                        <Route path="/level-1">
+                        <Route path="/cg-final-project/level-1">
                             <LevelOne/>
                         </Route>
                     </Switch>

@@ -40,7 +40,7 @@ class StoneBlock extends Component {
         let material = new BABYLON.StandardMaterial("StoneBlockMaterial", Globals.scene);
         
         // 
-        material.diffuseTexture = new BABYLON.Texture("/assets/textures/stone.png", Globals.scene);
+        material.diffuseTexture = new BABYLON.Texture("assets/textures/stone.png", Globals.scene);
         material.diffuseTexture.updateSamplingMode(BABYLON.Texture.NEAREST_NEAREST_MIPLINEAR);
 
         // Use CubeTexture to map the texture to each face

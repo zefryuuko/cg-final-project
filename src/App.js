@@ -9,9 +9,6 @@ import './App.css';
 // Levels
 import LevelOne from './components/levels/LevelOne';
 
-// import TestComponent from './TestComponent';
-
-
 class App extends Component {
     state = {  }
 
@@ -20,20 +17,23 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <Navbar/>
+                    <ul style={{color: "white"}}>
+                        <li>Show Debugger: [</li>
+                        <li>Hide Debugger: ]</li>
+                        <li><Link to="/cg-final-project/">Load Main Menu</Link></li>
+                        <li><Link to="/cg-final-project/level-1">Load Level 1</Link></li>
+                    </ul>
                     <div className="AppContainer">
                         <BabylonCanvas/>
-                        <Link to="/cg-final-project/">Load Main Menu</Link>
-                        <Link to="/cg-final-project/level-1">Load Level 1</Link>
+                        <Switch className="LevelContainer">
+                            {/* <Route path="/"> */}
+                                {/* Create main menu scene */}
+                            {/* </Route> */}
+                            <Route path="/cg-final-project/level-1">
+                                <LevelOne/>
+                            </Route>
+                        </Switch>
                     </div>
-                    <Switch className="GameObjectContainer">
-                        {/* <Route path="/"> */}
-                            {/* Create main menu scene */}
-                        {/* </Route> */}
-                        <Route path="/cg-final-project/level-1">
-                            <LevelOne/>
-                        </Route>
-                    </Switch>
-                    {/* <TestComponent posX="0" posY="0" posZ="0"/> */}
                 </div>
             </Router>
         )

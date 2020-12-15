@@ -24,3 +24,48 @@ body {
     background: #6b6b6b;
     box-shadow: 0px 0px 20px #000000;
 }
+
+.levelPanel {
+    width: 400px;
+    float: right;
+}
+
+.levelPanel .titlePanel {
+    height: 70px;
+    padding: 10px;
+    background: #ffffff;
+    border-bottom: 2px solid #dadada;
+}
+
+.levelPanel .titlePanel h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 32px;
+}
+
+.levelPanel .titlePanel p {
+    margin: -5px 0 0 2px;
+}
+
+.codeEngine {
+    height: 450px;
+    background-color: #ebebeb;
+}
+
+.instructionsPanel {
+    width: 100%;
+    height: 200px;
+    background-color: #f5f5f5;
+}
+
+.instructionsPanel .instructionsHeading {
+    padding: 10px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #dadada;
+    font-weight: 600;
+}
+
+.instructionsPanel p {
+    color: #000000;
+    padding: 10px;
+}

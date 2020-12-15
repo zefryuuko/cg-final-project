@@ -1,8 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
+
+// Babylon Objects
 import StoneBlock from '../gameObjects/StoneBlock';
 import GrassBlock from '../gameObjects/GrassBlock';
 import Character from '../gameObjects/Character';
+
+// UI and Code Engine
+import CodeEngine from '../codeEngine/CodeEngine';
+import LevelTitle from '../uiElements/LevelTitle';
+import LevelInstructions from '../uiElements/LevelInstructions';
 
 class LevelOne extends Component {
     constructor(props){
@@ -68,6 +75,19 @@ class LevelOne extends Component {
     render() {
         return (
             <div>
+                {/* Level Details */}
+                <div className="levelPanel">
+                    <LevelTitle heading="Level One" subheading="The Basics"/>
+                    <CodeEngine/>
+                    <LevelInstructions>
+                        <b>Welcome to your first level!</b><br/>
+                        To complete this level, you need to walk the
+                        character to the finish line using functions. 
+                        To add a function, press the plus button above.
+                    </LevelInstructions>
+                </div>
+
+                {/* Spawn map environment */}
                 {
                     // Spawn the map according to this.level
                     this.level.map((yData, yIndex) => {
@@ -86,6 +106,8 @@ class LevelOne extends Component {
                         } </div>
                     })
                 }
+
+                {/* Spawn player object */}
                 <Character posX={0} posY={1} posZ={0}/>
             </div>
         )

@@ -42,6 +42,7 @@ class Character extends Component {
         const posX = this.props.posX ? this.props.posX : 0;
         const posY = this.props.posY ? this.props.posY : 0;
         const posZ = this.props.posZ ? this.props.posZ : 0;
+        const faceDirection = this.props.faceDirection ? this.props.faceDirection : 0;
         
         // Create parent mesh
         this.mesh = BABYLON.MeshBuilder.CreateBox(
@@ -89,6 +90,10 @@ class Character extends Component {
                     mesh.material = meshMaterial;
                     mesh.setParent(this.mesh);
                 });
+
+                // Use rotation data from component properties
+                this.characterFaceDirection = faceDirection;
+                this.mesh.rotation.y += Math.PI * 0.5 * faceDirection;
             }
         );
     }

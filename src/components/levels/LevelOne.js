@@ -108,7 +108,7 @@ class LevelOne extends Component {
                 }
 
                 {/* Spawn player object */}
-                <Character posX={0} posY={1} posZ={0}/>
+                <Character posX={0} posY={1} posZ={0} faceDirection={2}/>
             </div>
         )
     }

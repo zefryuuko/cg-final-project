@@ -47,11 +47,6 @@ body {
     margin: -5px 0 0 2px;
 }
 
-.codeEngine {
-    height: 450px;
-    background-color: #ebebeb;
-}
-
 .instructionsPanel {
     width: 100%;
     height: 200px;
@@ -68,4 +63,32 @@ body {
 .instructionsPanel p {
     color: #000000;
     padding: 10px;
+}
+
+.codeEngine {
+    width: 100%;
+    padding: 10px;
+    height: 450px;
+    background-color: #ebebeb;
+    overflow-y: scroll;
+}
+
+.codeEngine .block {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #6b6b6b;
+    color: #ffffff;
+}
+
+.codeEngine .block.function {
+    background: #009fe9;
+}
+
+.codeEngine .block.if {
+    background: #e90075;
+}
+
+.codeEngine .block.loop {
+    background: #e98400;
 }

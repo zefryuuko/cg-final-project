@@ -67,7 +67,7 @@ class StoneBlock extends Component {
         
         const yOffset = this.props.yOffset ? this.props.yOffset : 0;
         const posY = this.props.posY ? this.props.posY : 0;
-        const animationDelaySeconds = (yOffset + posY) * 0.2;
+        const animationDelaySeconds = (yOffset + posY) * 0.2 + 1;
         
         const keyFrames = [];
         keyFrames.push({

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import 'babylonjs-loaders';
 import BabylonCanvas from './BabylonCanvas';
 import Navbar from './components/Navbar';
+import AddBlockModal from './components/uiElements/AddBlockModal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -35,6 +36,7 @@ class App extends Component {
                         </Switch>
                     </div>
                 </div>
+                <AddBlockModal></AddBlockModal>
             </Router>
         )
     }

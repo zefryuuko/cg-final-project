@@ -109,6 +109,7 @@ class LevelOne extends Component {
 
                 {/* Spawn player object */}
                 <Character posX={0} posY={1} posZ={0} faceDirection={2}/>
+                <button data-toggle="modal" data-target="#addBlockModal" className="btn btn-sm text-white btn-success mr-2">TEST ADD BLOCK MODAL</button>
             </div>
         )
     }

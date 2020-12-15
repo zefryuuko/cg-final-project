@@ -98,10 +98,14 @@ class BabylonCanvas extends Component {
             "MainCamera",
             Math.PI / 2,
             Math.PI / 4,
-            20,
+            10,
             new BABYLON.Vector3(2, 0, 2),
             Globals.scene
         );
+        
+        this.arcRotateCamera.panningSensibility = 0;
+        this.arcRotateCamera.lowerRadiusLimit = this.arcRotateCamera.upperRadiusLimit = 10;
+
         // camera.inertia = 0;
         // camera.angularSensibilityX = 250;
         // camera.angularSensibilityY = 250;

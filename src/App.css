@@ -94,3 +94,24 @@ body {
 .codeEngine .block.loop {
     background: #e98400;
 }
+
+.codeEngine .btnAddBlock {
+    padding: 5px 20px 5px 20px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    display: block;
+    background: #bbbbbb;
+    border: 0;
+}
+
+.codeEngine .block.if .btnAddBlock {
+    margin-bottom: 0;
+    background: #bb083e;
+    color: #ffffff;
+}
+
+.codeEngine .block.loop .btnAddBlock {
+    margin-bottom: 0;
+    background: #ca710a;
+    color: #ffffff;
+}

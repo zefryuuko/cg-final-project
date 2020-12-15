@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import AddBlockButton from '../uiElements/AddBlockButton';
 
 class CodeEngine extends Component {
     constructor(props) {
@@ -38,10 +39,27 @@ class CodeEngine extends Component {
                 </div>
                 <div className="block if">
                     if
+                    <AddBlockButton></AddBlockButton>
                 </div>
                 <div className="block loop">
                     loop
+                    <div className="block function">
+                        function
+                    </div>
+                    <AddBlockButton></AddBlockButton>
                 </div>
+                <div className="block if">
+                    if
+                    <div className="block loop">
+                        loop
+                        <div className="block function">
+                            function
+                        </div>
+                        <AddBlockButton></AddBlockButton>
+                    </div>
+                    <AddBlockButton></AddBlockButton>
+                </div>
+                <AddBlockButton></AddBlockButton>
             </div>
         );
     }

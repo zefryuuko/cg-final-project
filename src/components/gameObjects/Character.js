@@ -71,6 +71,7 @@ class Character extends Component {
                 this.idleAnimation = animationGroups[0];
                 this.walkingAnimation = animationGroups[1];
                 
+                
                 // Modify mesh properties
                 meshes.forEach(mesh => {
                     mesh.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
@@ -79,6 +80,13 @@ class Character extends Component {
                         posY + this.yOffset,
                         posZ + this.zOffset
                     );
+                    const meshMaterial = new BABYLON.StandardMaterial("characterMaterial");
+                    meshMaterial.specularColor = new BABYLON.Color3(1 ,1 ,1);
+                    meshMaterial.diffuseColor = new BABYLON.Color3(1, 0.6, 0);
+                    meshMaterial.backFaceCulling = false;
+                    meshMaterial.ambientColor = new BABYLON.Color3(0.23, 0.98, 0.53);
+
+                    mesh.material = meshMaterial;
                     mesh.setParent(this.mesh);
                 });
             }

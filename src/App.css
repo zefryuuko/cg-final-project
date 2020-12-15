@@ -11,6 +11,8 @@ body {
     height: 100%;
     touch-action: none;
     float: left;
+    outline: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .AppContainer {

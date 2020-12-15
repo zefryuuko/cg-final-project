@@ -1,0 +1,8 @@
+newmtl Mushroom2Mat
+Kd 1 0.1375789 0
+illum 2
+
+newmtl Wood2Mat
+Kd 0.8584906 0.7205724 0.5709772
+illum 2
+

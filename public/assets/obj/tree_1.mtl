@@ -1,0 +1,8 @@
+newmtl Wood1Mat
+Kd 0.6981132 0.4286097 0.1679423
+illum 2
+
+newmtl TreeGreen1Mat
+Kd 0.3017925 0.5943396 0.1541919
+illum 2
+

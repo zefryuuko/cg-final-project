@@ -11,6 +11,7 @@ class GrassBlock extends Component {
     componentDidMount = () => {
         this.createMesh();
         this.applyMaterial();
+        this.startSpawnAnimation();
     }
 
     componentWillUnmount = () => {
@@ -51,6 +52,38 @@ class GrassBlock extends Component {
         this.mesh.material = material;
     }
 
+    startSpawnAnimation = () => {
+        const spawnAnimation = new BABYLON.Animation(
+            "spawnAnimation", 
+            "scaling", 
+            Globals.framerate, 
+            BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+        );
+        
+        const yOffset = this.props.yOffset ? this.props.yOffset : 0;
+        const posY = this.props.posY ? this.props.posY : 0;
+        const animationDelaySeconds = (yOffset + posY) * 0.2;
+        
+        const keyFrames = [];
+        keyFrames.push({
+            frame: 0,
+            value: BABYLON.Vector3.Zero(),
+        });
+        keyFrames.push({
+            frame: animationDelaySeconds * Globals.framerate,
+            value: BABYLON.Vector3.Zero()
+        });
+        keyFrames.push({
+            frame: (animationDelaySeconds * Globals.framerate) + (0.3 * Globals.framerate),
+            value: BABYLON.Vector3.One(),
+        });
+        spawnAnimation.setKeys(keyFrames);
+
+        this.mesh.animations.push(spawnAnimation);
+        
+        Globals.scene.beginAnimation(this.mesh, 0, (animationDelaySeconds * Globals.framerate) + (0.3 * Globals.framerate), false);
+    }
 
     render = () => {
         return (

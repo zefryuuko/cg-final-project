@@ -211,7 +211,7 @@ class Character extends Component {
     render = () => {
         return (
             <div>
-                <button onClick={this.walk}>PRESS ME DADDY</button>
+                <button onClick={this.walk}>Move Forward</button>
                 <button onClick={this.turnLeft}>Turn Left</button>
                 <button onClick={this.turnRight}>Turn Right</button>
             </div>

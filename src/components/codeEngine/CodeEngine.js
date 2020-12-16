@@ -44,7 +44,18 @@ class CodeEngine extends Component {
                     return {
                         functions: prevState.functions.concat({
                             type: "TURN",
-                            direction: "RIGHT"
+                            direction: "LEFT"
+                        })
+                    }
+                });
+                break;
+            case "LOOP":
+                this.setState(prevState => {
+                    return {
+                        functions: prevState.functions.concat({
+                            type: "LOOP",
+                            loopCycles: 1,
+                            children: []
                         })
                     }
                 });

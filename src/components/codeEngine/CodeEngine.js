@@ -28,13 +28,56 @@ class CodeEngine extends Component {
     }
 
     addBlock = (blockType) => {
+        // Create block 
+        switch(blockType) {
+            case "WALK":
+                this.setState(prevState => {
+                    return {
+                        functions: prevState.functions.concat({
+                            type: "WALK"
+                        })
+                    }
+                });
+                break;
+            case "TURN":
+                this.setState(prevState => {
+                    return {
+                        functions: prevState.functions.concat({
+                            type: "TURN",
+                            direction: "RIGHT"
+                        })
+                    }
+                });
+                break;
+            default:
+                console.error(`Unknown code block type: ${blockType}`);
+                break;
+        }
+    }
 
+    renderBlock = (blockMetadata, key) => {
+        switch(blockMetadata.type) {
+            case "WALK":
+                return (
+                    <div className="block function" key={key}>
+                        Walk
+                    </div>
+                );
+            default:
+                return <div>Invalid data. Received {JSON.stringify(blockMetadata)}</div>;
+        }
     }
 
     render = () => {
         return (
             <div className="codeEngine">
-                <div className="block function">
+                {console.log(this.state.functions)}
+                {
+                    this.state.functions.map((data, index) => {
+                        return this.renderBlock(data, index);
+                    })
+                }
+                {/* <div className="block function">
                     function
                 </div>
                 <div className="block if">
@@ -58,8 +101,8 @@ class CodeEngine extends Component {
                         <AddBlockButton></AddBlockButton>
                     </div>
                     <AddBlockButton></AddBlockButton>
-                </div>
-                <AddBlockButton></AddBlockButton>
+                </div> */}
+                <AddBlockButton targetParent={this}></AddBlockButton>
             </div>
         );
     }

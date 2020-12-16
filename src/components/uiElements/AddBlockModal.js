@@ -26,6 +26,7 @@ class AddBlockModal extends Component {
 
     onAddButtonClicked = () => {
         console.log(`Adding ${this.state.selectedBlockType} block`);
+        this.targetParent.addBlock(this.state.selectedBlockType);
     }
 
     render() { 

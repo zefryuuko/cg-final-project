@@ -70,9 +70,7 @@ class CodeEngine extends Component {
         switch(blockMetadata.type) {
             case "WALK":
                 return (
-                    <div className="block function" key={key}>
-                        Walk
-                    </div>
+                    <WalkBlock key={key} index={key}/>
                 );
             default:
                 return <div>Invalid data. Received {JSON.stringify(blockMetadata)}</div>;

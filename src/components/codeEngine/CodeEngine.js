@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AddBlockButton from '../uiElements/AddBlockButton';
+import WalkBlock from '../uiElements/WalkBlock';
 
 class CodeEngine extends Component {
     constructor(props) {
@@ -80,7 +81,6 @@ class CodeEngine extends Component {
     render = () => {
         return (
             <div className="codeEngine">
-                {console.log(this.state.functions)}
                 {
                     this.state.functions.map((data, index) => {
                         return this.renderBlock(data, index);

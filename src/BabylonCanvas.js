@@ -10,7 +10,8 @@ class BabylonCanvas extends Component {
     constructor(props) {
         super(props);
         this.state = { useWireFrame: false, shouldAnimate: false };
-        this.light = undefined;
+        this.hemisphericLight = undefined;
+        this.underMapLighting = undefined;
         this.arcRotateCamera = undefined;
     }
     
@@ -66,11 +67,21 @@ class BabylonCanvas extends Component {
 
     addLight = () => {
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
-        this.light = new BABYLON.HemisphericLight(
-            "light1",
-            new BABYLON.Vector3(0, -1, 0),
+        this.hemisphericLight = new BABYLON.HemisphericLight(
+            "hemisphericLight",
+            new BABYLON.Vector3(0, 1, 0),
             Globals.scene
         );
+
+        // Create directional light below the map to light up the bottom faces
+        this.underMapLighting = new BABYLON.SpotLight(
+            "underMapLight",
+            new BABYLON.Vector3(2, -10, 2),
+            new BABYLON.Vector3(0, 1, 0),
+            Math.PI,
+            8,
+            Globals.scene
+        )
     };
 
     addSkybox = () => {

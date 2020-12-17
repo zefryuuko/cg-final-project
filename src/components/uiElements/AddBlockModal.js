@@ -7,7 +7,7 @@ class AddBlockModal extends Component {
         this.state = {
             selectedBlockType: null
         }
-        this.targetParent = undefined;
+        this.parentBlockIndex = -1;
 
         Globals.addBlockModal = this;
     }
@@ -26,7 +26,7 @@ class AddBlockModal extends Component {
 
     onAddButtonClicked = () => {
         console.log(`Adding ${this.state.selectedBlockType} block`);
-        this.targetParent.addBlock(this.state.selectedBlockType);
+        Globals.codeEngine.addBlock(this.state.selectedBlockType, this.parentBlockIndex);
     }
 
     render() { 

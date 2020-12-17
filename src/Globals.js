@@ -5,6 +5,7 @@ class Globals {
         this.framerate = 60;
         this.character = undefined;
         this.addBlockModal = undefined;
+        this.codeEngine = undefined;
     }
 }
 

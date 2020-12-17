@@ -7,12 +7,11 @@ class AddBlockButton extends Component {
         this.state = {
             blockCountLimit: null
         }
-        this.targetParent = props.targetParent;
     }
 
     onButtonClicked = () => {
-        // Set modal's target component to the passed props
-        Globals.addBlockModal.targetParent = this.props.targetParent;
+        // Set the modal's parent index reference
+        Globals.addBlockModal.parentBlockIndex = this.props.parentBlockIndex;
     }
 
     render = () => {

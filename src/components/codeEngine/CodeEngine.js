@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import Globals from '../../Globals';
+
 import AddBlockButton from '../uiElements/AddBlockButton';
 import WalkBlock from '../uiElements/WalkBlock';
+import LoopBlock from '../uiElements/LoopBlock';
 
 class CodeEngine extends Component {
     constructor(props) {
@@ -18,60 +21,126 @@ class CodeEngine extends Component {
             IF: 2,
             LOOP: 3
         });
+
+        // Reference current CodeEngine instance to global
+        Globals.codeEngine = this;
     }
 
     componentDidMount = () => {
 
     }
 
-    startSimulation = () => {
+    startSimulation = (functions) => {
+        // Use root functions array parameter is not passed
+        functions = functions ? functions : this.state.functions;
 
-    }
-
-    addBlock = (blockType) => {
-        // Create block 
-        switch(blockType) {
-            case "WALK":
-                this.setState(prevState => {
-                    return {
-                        functions: prevState.functions.concat({
-                            type: "WALK"
-                        })
+        for (let i = 0; i < functions.length; i++) {
+            setTimeout(
+                () => {
+                    console.log(`Calling action: ${functions[i].type}`)
+                    switch(functions[i].type) {
+                        case "WALK":
+                            Globals.character.walk();
+                            break;
+                        default:
+                            break;
                     }
-                });
-                break;
-            case "TURN":
-                this.setState(prevState => {
-                    return {
-                        functions: prevState.functions.concat({
-                            type: "TURN",
-                            direction: "LEFT"
-                        })
-                    }
-                });
-                break;
-            case "LOOP":
-                this.setState(prevState => {
-                    return {
-                        functions: prevState.functions.concat({
-                            type: "LOOP",
-                            loopCycles: 1,
-                            children: []
-                        })
-                    }
-                });
-                break;
-            default:
-                console.error(`Unknown code block type: ${blockType}`);
-                break;
+                },
+                1000 * i
+            );
         }
     }
 
-    renderBlock = (blockMetadata, key) => {
+    addBlock = (blockType, parentIndex) => {
+        console.log(`Adding ${blockType} to ${parentIndex}`);
+        this.setState(prevState => {
+            // Duplicate the state to another variable
+            // Stringify and reparse JSON to do deep copy of nested objects
+            let newFunctions = JSON.parse(
+                JSON.stringify(prevState.functions)
+            );
+            
+            // Reference the parent of the new block. Use root functions array if -1 is passed
+            let blockParentRef = parentIndex === -1 ? newFunctions : newFunctions[parentIndex].children;
+
+            // Add the new block to the parent block
+            switch(blockType) {
+                case "WALK":
+                    blockParentRef.push({
+                        type: "WALK"
+                    });
+                    break;
+                case "TURN":
+                    blockParentRef.push({
+                        type: "TURN",
+                        direction: 1    // 1: left, -1: right
+                    });
+                    break;
+                case "LOOP":
+                    blockParentRef.push({
+                        type: "LOOP",
+                        loopCycles: 1,
+                        children: []
+                    });
+                    break;
+                default:
+                    console.error(`Unknown code block type: ${blockType}`);
+                    break; 
+            }
+
+            // Return the new functions array
+            return {
+                functions: newFunctions
+            }
+        });
+
+        // Create block 
+        // switch(blockType) {
+        //     case "WALK":
+        //         this.setState(prevState => {
+        //             return {
+        //                 functions: prevState.functions.concat({
+        //                     type: "WALK"
+        //                 })
+        //             }
+        //         });
+        //         break;
+        //     case "TURN":
+        //         this.setState(prevState => {
+        //             return {
+        //                 functions: prevState.functions.concat({
+        //                     type: "TURN",
+        //                     direction: "LEFT"
+        //                 })
+        //             }
+        //         });
+        //         break;
+        //     case "LOOP":
+        //         this.setState(prevState => {
+        //             return {
+        //                 functions: prevState.functions.concat({
+        //                     type: "LOOP",
+        //                     loopCycles: 1,
+        //                     children: []
+        //                 })
+        //             }
+        //         });
+        //         break;
+        //     default:
+        //         console.error(`Unknown code block type: ${blockType}`);
+        //         break;
+        // }
+    }
+
+    renderBlock = (blockMetadata, key, parentIndex) => {
         switch(blockMetadata.type) {
             case "WALK":
                 return (
-                    <WalkBlock key={key} index={key}/>
+                    <WalkBlock key={key} index={key} parentIndex={parentIndex}/>
+                );
+            case "LOOP":
+                return (
+                    <LoopBlock key={key} index={key} parentIndex={parentIndex}/>
                 );
             default:
                 return <div>Invalid data. Received {JSON.stringify(blockMetadata)}</div>;
@@ -79,11 +148,12 @@ class CodeEngine extends Component {
     }
 
     render = () => {
+        console.log(this.state.functions);
         return (
             <div className="codeEngine">
                 {
-                    this.state.functions.map((data, index) => {
-                        return this.renderBlock(data, index);
+                    this.state.functions.map((data, key) => {
+                        return this.renderBlock(data, key, "-1");
                     })
                 }
                 {/* <div className="block function">
@@ -111,7 +181,8 @@ class CodeEngine extends Component {
                     </div>
                     <AddBlockButton></AddBlockButton>
                 </div> */}
-                <AddBlockButton targetParent={this}></AddBlockButton>
+                <AddBlockButton parentBlockIndex={-1}/>
+                <button onClick={() => {this.startSimulation()}}>Start Simulation</button>
             </div>
         );
     }

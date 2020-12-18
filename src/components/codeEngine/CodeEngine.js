@@ -53,46 +53,64 @@ class CodeEngine extends Component {
 
     addBlock = (blockType, parentIndex) => {
         console.log(`Adding ${blockType} to ${parentIndex}`);
-        this.setState(prevState => {
-            // Duplicate the state to another variable
-            // Stringify and reparse JSON to do deep copy of nested objects
-            let newFunctions = JSON.parse(
-                JSON.stringify(prevState.functions)
-            );
-            
-            // Reference the parent of the new block. Use root functions array if -1 is passed
-            let blockParentRef = parentIndex === -1 ? newFunctions : newFunctions[parentIndex].children;
+        this.setState(
+            prevState => {
+                // Duplicate the state to another variable
+                // Stringify and reparse JSON to do deep copy of nested objects
+                let newFunctions = JSON.parse(
+                    JSON.stringify(prevState.functions)
+                );
+                console.log(parentIndex)
 
-            // Add the new block to the parent block
-            switch(blockType) {
-                case "WALK":
-                    blockParentRef.push({
-                        type: "WALK"
-                    });
-                    break;
-                case "TURN":
-                    blockParentRef.push({
-                        type: "TURN",
-                        direction: 1    // 1: left, -1: right
-                    });
-                    break;
-                case "LOOP":
-                    blockParentRef.push({
-                        type: "LOOP",
-                        loopCycles: 1,
-                        children: []
-                    });
-                    break;
-                default:
-                    console.error(`Unknown code block type: ${blockType}`);
-                    break; 
-            }
+                const indexes = parentIndex.split(" ").map(i => +i);
+                let currentParentRef = undefined;
+                for (let i = 0; i < indexes.length; i++) {
+                    if (indexes[i] === -1) {
+                        currentParentRef = newFunctions;
+                    } else {
+                        currentParentRef = currentParentRef[indexes[i]].children;
+                    }
+                }
+        
+                let blockParentRef = currentParentRef;
+                
+                // Reference the parent of the new block. Use root functions array if -1 is passed
+                // let blockParentRef = parentIndex === -1 ? newFunctions : newFunctions[parentIndex].children;
 
-            // Return the new functions array
-            return {
-                functions: newFunctions
+                // Add the new block to the parent block
+                switch(blockType) {
+                    case "WALK":
+                        blockParentRef.push({
+                            type: "WALK"
+                        });
+                        break;
+                    case "TURN":
+                        blockParentRef.push({
+                            type: "TURN",
+                            direction: 1    // 1: left, -1: right
+                        });
+                        break;
+                    case "LOOP":
+                        blockParentRef.push({
+                            type: "LOOP",
+                            loopCycles: 1,
+                            children: []
+                        });
+                        break;
+                    default:
+                        console.error(`Unknown code block type: ${blockType}`);
+                        break; 
+                }
+
+                // Return the new functions array
+                return {
+                    functions: newFunctions
+                }
+            },
+            () => {
+                this.forceUpdate();
             }
-        });
+        )
 
         // Create block 
         // switch(blockType) {
@@ -181,7 +199,7 @@ class CodeEngine extends Component {
                     </div>
                     <AddBlockButton></AddBlockButton>
                 </div> */}
-                <AddBlockButton parentBlockIndex={-1}/>
+                <AddBlockButton parentBlockIndex="-1"/>
                 <button onClick={() => {this.startSimulation()}}>Start Simulation</button>
             </div>
         );

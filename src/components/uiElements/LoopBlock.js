@@ -5,7 +5,14 @@ import AddBlockButton from './AddBlockButton';
 class LoopBlock extends Component {
     constructor(props) {
         super(props);
-        
+        this.updateChildReference();
+    }
+    
+    componentDidUpdate = () => {
+        this.updateChildReference();
+    }
+    
+    updateChildReference = () => {
         // Retrieve functions array reference from index props
         const indexes = this.props.parentIndex.split(" ").map(i => +i);
         let currentParentRef = undefined;
@@ -18,8 +25,8 @@ class LoopBlock extends Component {
         }
 
         this.currentBlockChildren = currentParentRef[this.props.index].children;
-        console.log("currentBlockChildren", this.currentBlockChildren)
     }
+
     render = () => {
         return (
             <div className="block loop" index={this.props.index}>
@@ -27,11 +34,11 @@ class LoopBlock extends Component {
                 <div className="children">
                     {
                         this.currentBlockChildren.map((data, key) => {
-                            return Globals.codeEngine.renderBlock(data, key, `${this.props.index} ${key}`);
+                            return Globals.codeEngine.renderBlock(data, key, `${this.props.parentIndex} ${key}`);
                         })
                     }
                 </div>
-                <AddBlockButton parentBlockIndex={this.props.index}/>
+                <AddBlockButton parentBlockIndex={`${this.props.parentIndex} ${this.props.index}`}/>
             </div>
         )
     }

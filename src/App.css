@@ -93,6 +93,7 @@ body {
 
 .codeEngine .block.loop {
     background: #e98400;
+    border: 3px solid #ca710a;
 }
 
 .codeEngine .btnAddBlock {

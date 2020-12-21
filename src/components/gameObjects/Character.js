@@ -10,7 +10,7 @@ class Character extends Component {
         this.mesh = undefined;
         this.characterModel = undefined;
         this.characterModelMeshes = undefined;
-        this.characterFaceDirection = 0;    // Value represents N E S W
+        this.characterFaceDirection = props.faceDirection;    // Value represents N E S W
         
         // Object position offset
         this.xOffset = 0;

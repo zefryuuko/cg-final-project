@@ -9,7 +9,7 @@ class ENVIRONMENT {
     GRASS = 2;
     PATH = 3;
     
-    WALKABLE_BLOCKS = [this.PATH];
+    WALKABLE_BLOCKS = [this.PATH, this.GRASS];
 }
 
 // Freeze the object to prevent changes

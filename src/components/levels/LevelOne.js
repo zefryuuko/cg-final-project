@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
+import Globals from '../../Globals';
 
 // Babylon Objects
 import StoneBlock from '../gameObjects/StoneBlock';
@@ -50,6 +51,7 @@ class LevelOne extends Component {
             ]
         ]
         this.yOffset = 3;
+        Globals.currentLevel = this;
     }
 
     componentDidMount() {

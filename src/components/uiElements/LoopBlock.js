@@ -30,11 +30,31 @@ class LoopBlock extends Component {
         this.currentBlockChildren = currentParentRef[this.props.index].children;
     }
 
+    onCycleCountChange = (event) => {
+        const { value } = event.target;
+
+        // Update value on CodeEngine
+        Globals.codeEngine.updateBlock(
+            this.props.parentIndex,
+            this.props.index,
+            { loopCycles: value }
+        );        
+    }
+
     render = () => {
         return (
             <div className="block loop" index={this.props.index}>
                 <DeleteBlockButton index={this.props.index} parentIndex={this.props.parentIndex}/>
-                <p>Loop [n] times</p>
+                <p>Loop</p>
+                    <input 
+                        type="number"
+                        className="form-control"
+                        min="2"
+                        max="99"
+                        onChange={this.onCycleCountChange}
+                        value={this.props.loopCycles}
+                    />
+                <p>times</p>
                 <div className="children">
                     {
                         this.currentBlockChildren.map((data, key) => {

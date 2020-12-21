@@ -261,7 +261,12 @@ class CodeEngine extends Component {
                 );
             case "LOOP":
                 return (
-                    <LoopBlock key={key} index={key} parentIndex={parentIndex}/>
+                    <LoopBlock 
+                        key={key}
+                        index={key}
+                        parentIndex={parentIndex}
+                        loopCycles={blockMetadata.loopCycles}
+                    />
                 );
             default:
                 return <div>Invalid data. Received {JSON.stringify(blockMetadata)}</div>;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Globals from '../../Globals';
+import _ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
 
 import AddBlockButton from '../uiElements/AddBlockButton';
 import WalkBlock from '../uiElements/WalkBlock';
@@ -24,7 +25,7 @@ class CodeEngine extends Component {
             LOOP: 3
         });
 
-        // Reference current CodeEngine instance to global
+        // Reference current CodeEngine instance to globals
         Globals.codeEngine = this;
     }
 
@@ -33,24 +34,6 @@ class CodeEngine extends Component {
     }
 
     startSimulation = (functions) => {
-        // Use root functions array parameter is not passed
-        // functions = functions ? functions : this.state.functions;
-
-        // for (let i = 0; i < functions.length; i++) {
-        //     setTimeout(
-        //         () => {
-        //             console.log(`Calling action: ${functions[i].type}`)
-        //             switch(functions[i].type) {
-        //                 case "WALK":
-        //                     Globals.character.walk();
-        //                     break;
-        //                 default:
-        //                     break;
-        //             }
-        //         },
-        //         1000 * i
-        //     );
-        // }
         this.simulate(this.state.functions).then((runSuccessfuly) => {
             if (!runSuccessfuly) {
                 // Reset to its original state
@@ -63,14 +46,14 @@ class CodeEngine extends Component {
     }
 
     simulate = async (parent) => {
+        // Run actions based on the user input
         for (let block of parent) {
-            console.log(block)
-            // Do action
             switch(block.type) {
                 case "WALK":
                     if (!await this.walk()) return false;
                     break;
                 case "TURN":
+                    if (!await this.turn(block.direction)) return false;
                     break;
                 case "LOOP":
                     if (!await this.loop(block)) return false;
@@ -79,9 +62,14 @@ class CodeEngine extends Component {
                     console.error(`Invalid block type. Received ${block.type}`);
                     return false;
             }
-            await this.delayAction(1000);
 
+            // Do not add any execution delay if the current block is loop
+            if (block.type !== "LOOP") await this.delayAction(1000);
+            
+            // Check if the player has reached the final position
         }
+
+        // Check if the player has reached the final position
         return true;
     }
 
@@ -89,8 +77,41 @@ class CodeEngine extends Component {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    hasReachedGoal = () => {
+        // Check if the player has reached the final position
+    }
+
     walk = async () => {
-        // TODO: Validate movement
+        // Va;odate if the player can move forward
+        let targetX = Globals.character.mesh.position.x;
+        let targetZ = Globals.character.mesh.position.z;
+
+        switch(Globals.character.characterFaceDirection) {
+            case 0: // Z-
+                targetZ -= 1;
+                break;
+            case 1:  // X-
+                targetX -= 1;
+                break;
+            case 2: // Z+
+                console.log("case 2")
+                targetZ += 1;
+                break;
+            case 3: // X+
+                console.log("case 3")
+                targetX += 1;
+                break;
+            default:
+                break;
+        }
+
+        if (targetX < 0 || targetX > 4) return false;
+        if (targetZ < 0 || targetZ > 4) return false;
+        const targetBlockType = Globals.currentLevel.level[Globals.currentLevel.yOffset][targetX][targetZ];
+        if (!_ENVIRONMENT.WALKABLE_BLOCKS.includes(targetBlockType)) return false;
+
+        // Send the command to move forward.
+        // Return true tells the recursive funciton to contunue running.
         Globals.character.walk();
         return true;
     }
@@ -112,7 +133,6 @@ class CodeEngine extends Component {
     loop = async (parentBlock) => {
         for(let i = 0; i < parentBlock.loopCycles; i++) {
             if (!await this.simulate(parentBlock.children)) return false;
-            await this.delayAction(1000);
         }
         return true;
     }

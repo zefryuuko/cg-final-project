@@ -137,6 +137,19 @@ class CodeEngine extends Component {
         return true;
     }
 
+    getParentRef = (functionsArray, parentIndexString) => {
+        const indexes = parentIndexString.split(" ").map(i => +i);
+        let currentParentRef = undefined;
+        for (let i = 0; i < indexes.length; i++) {
+            if (indexes[i] === -1) {
+                currentParentRef = functionsArray;
+            } else {
+                currentParentRef = currentParentRef[indexes[i]].children;
+            }
+        }
+        return currentParentRef;
+    }
+
     addBlock = (blockType, parentIndex) => {
         console.log(`Adding ${blockType} to ${parentIndex}`);
         this.setState(
@@ -146,18 +159,10 @@ class CodeEngine extends Component {
                 let newFunctions = JSON.parse(
                     JSON.stringify(prevState.functions)
                 );
-                console.log(parentIndex)
 
-                const indexes = parentIndex.split(" ").map(i => +i);
-                let currentParentRef = undefined;
-                for (let i = 0; i < indexes.length; i++) {
-                    if (indexes[i] === -1) {
-                        currentParentRef = newFunctions;
-                    } else {
-                        currentParentRef = currentParentRef[indexes[i]].children;
-                    }
-                }
-                let blockParentRef = currentParentRef;
+                // Get the reference to the parent block
+                // Determines where the new objecrt is placed
+                let blockParentRef = this.getParentRef(newFunctions, parentIndex);
 
                 // Add the new block to the parent block
                 switch(blockType) {

@@ -34,7 +34,7 @@ class LoopBlock extends Component {
                 <div className="children">
                     {
                         this.currentBlockChildren.map((data, key) => {
-                            return Globals.codeEngine.renderBlock(data, key, `${this.props.parentIndex} ${key}`);
+                            return Globals.codeEngine.renderBlock(data, key, `${this.props.parentIndex} ${this.props.index}`);
                         })
                     }
                 </div>

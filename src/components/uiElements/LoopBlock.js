@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Globals from '../../Globals';
 import AddBlockButton from './AddBlockButton';
+import DeleteBlockButton from './DeleteBlockButton';
 
 class LoopBlock extends Component {
     constructor(props) {
@@ -20,16 +21,19 @@ class LoopBlock extends Component {
             if (indexes[i] === -1) {
                 currentParentRef = Globals.codeEngine.state.functions;
             } else {
+                if (!currentParentRef[indexes[i]]) return;
                 currentParentRef = currentParentRef[indexes[i]].children;
             }
         }
 
+        if (!currentParentRef[this.props.index]) return;
         this.currentBlockChildren = currentParentRef[this.props.index].children;
     }
 
     render = () => {
         return (
             <div className="block loop" index={this.props.index}>
+                <DeleteBlockButton index={this.props.index} parentIndex={this.props.parentIndex}/>
                 <p>Loop [n] times</p>
                 <div className="children">
                     {

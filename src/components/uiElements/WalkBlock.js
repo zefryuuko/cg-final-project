@@ -1,14 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import DeleteBlockButton from '../uiElements/DeleteBlockButton';
 
 class WalkBlock extends Component {
-    onDeleteButtonClicked = () => {
-
-    }
-
     render = () => {
         return (
             <div className="block function" index={this.props.index}>
-                Walk
+                <DeleteBlockButton index={this.props.index} parentIndex={this.props.parentIndex}/>
+                <p>Walk</p>
             </div>
         )
     }

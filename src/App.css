@@ -83,8 +83,16 @@ body {
     color: #ffffff;
 }
 
+.codeEngine .block p {
+    display: inline-block;
+}
+
 .codeEngine .block.function {
     background: #009fe9;
+}
+
+.codeEngine .block.function p {
+    margin: 0;
 }
 
 .codeEngine .block.if {
@@ -115,4 +123,12 @@ body {
     margin-bottom: 0;
     background: #ca710a;
     color: #ffffff;
+}
+
+.codeEngine .btnDeleteBlock {
+    padding: 5px 10px 5px 10px;
+    margin: 0 10px 0 0;
+    display: inline-block;
+    background: #bbbbbb;
+    border: 0;
 }

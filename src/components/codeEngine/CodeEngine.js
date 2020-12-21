@@ -11,6 +11,8 @@ class CodeEngine extends Component {
         // const { allowedFunctions, level } = props;
         this.state = {
             functions: [],
+            hasBlockCountLimit: false,
+            blockCountLimit: -1,
             isRunning: false
         }
 
@@ -32,23 +34,87 @@ class CodeEngine extends Component {
 
     startSimulation = (functions) => {
         // Use root functions array parameter is not passed
-        functions = functions ? functions : this.state.functions;
+        // functions = functions ? functions : this.state.functions;
 
-        for (let i = 0; i < functions.length; i++) {
-            setTimeout(
-                () => {
-                    console.log(`Calling action: ${functions[i].type}`)
-                    switch(functions[i].type) {
-                        case "WALK":
-                            Globals.character.walk();
-                            break;
-                        default:
-                            break;
-                    }
-                },
-                1000 * i
-            );
+        // for (let i = 0; i < functions.length; i++) {
+        //     setTimeout(
+        //         () => {
+        //             console.log(`Calling action: ${functions[i].type}`)
+        //             switch(functions[i].type) {
+        //                 case "WALK":
+        //                     Globals.character.walk();
+        //                     break;
+        //                 default:
+        //                     break;
+        //             }
+        //         },
+        //         1000 * i
+        //     );
+        // }
+        this.simulate(this.state.functions).then((runSuccessfuly) => {
+            if (!runSuccessfuly) {
+                // Reset to its original state
+                console.error("Simulation failed");
+            } else {
+                console.log("Simulation ran successfuly.");
+                // Transition to the next scene
+            }
+        });
+    }
+
+    simulate = async (parent) => {
+        for (let block of parent) {
+            console.log(block)
+            // Do action
+            switch(block.type) {
+                case "WALK":
+                    if (!await this.walk()) return false;
+                    break;
+                case "TURN":
+                    break;
+                case "LOOP":
+                    if (!await this.loop(block)) return false;
+                    break;
+                default:
+                    console.error(`Invalid block type. Received ${block.type}`);
+                    return false;
+            }
+            await this.delayAction(1000);
+
         }
+        return true;
+    }
+
+    delayAction(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    walk = async () => {
+        // TODO: Validate movement
+        Globals.character.walk();
+        return true;
+    }
+
+    turn = async (direction) => {
+        switch(direction) {
+            case 1: // Turn right
+                Globals.character.turnRight();
+                break;
+            case 2: // Turn left
+                Globals.character.turnLeft();
+                break;
+            default:
+                console.error(`Invalid turn direction. Received ${direction}`);
+                break;
+        }
+    }
+
+    loop = async (parentBlock) => {
+        for(let i = 0; i < parentBlock.loopCycles; i++) {
+            if (!await this.simulate(parentBlock.children)) return false;
+            await this.delayAction(1000);
+        }
+        return true;
     }
 
     addBlock = (blockType, parentIndex) => {
@@ -93,7 +159,7 @@ class CodeEngine extends Component {
                     case "LOOP":
                         blockParentRef.push({
                             type: "LOOP",
-                            loopCycles: 1,
+                            loopCycles: 2,
                             children: []
                         });
                         break;

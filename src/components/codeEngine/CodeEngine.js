@@ -200,6 +200,31 @@ class CodeEngine extends Component {
         )
     }
 
+    deleteBlock = (parentIndex, blockIndex) => {
+        console.log(`Removing index ${blockIndex} from ${parentIndex}`);
+        this.setState(
+            prevState => {
+                // Duplicate the state to another variable
+                // Stringify and reparse JSON to do deep copy of nested objects
+                let newFunctions = JSON.parse(
+                    JSON.stringify(prevState.functions)
+                );
+
+                let blockParentRef = this.getParentRef(newFunctions, parentIndex);
+                
+                blockParentRef.splice(blockIndex, 1);
+
+                // Return the new functions array
+                return {
+                    functions: newFunctions
+                }
+            },
+            () => {
+                this.forceUpdate();
+            }
+        )
+    }
+
     renderBlock = (blockMetadata, key, parentIndex) => {
         switch(blockMetadata.type) {
             case "WALK":

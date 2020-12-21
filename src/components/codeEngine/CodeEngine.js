@@ -157,11 +157,7 @@ class CodeEngine extends Component {
                         currentParentRef = currentParentRef[indexes[i]].children;
                     }
                 }
-        
                 let blockParentRef = currentParentRef;
-                
-                // Reference the parent of the new block. Use root functions array if -1 is passed
-                // let blockParentRef = parentIndex === -1 ? newFunctions : newFunctions[parentIndex].children;
 
                 // Add the new block to the parent block
                 switch(blockType) {
@@ -197,43 +193,6 @@ class CodeEngine extends Component {
                 this.forceUpdate();
             }
         )
-
-        // Create block 
-        // switch(blockType) {
-        //     case "WALK":
-        //         this.setState(prevState => {
-        //             return {
-        //                 functions: prevState.functions.concat({
-        //                     type: "WALK"
-        //                 })
-        //             }
-        //         });
-        //         break;
-        //     case "TURN":
-        //         this.setState(prevState => {
-        //             return {
-        //                 functions: prevState.functions.concat({
-        //                     type: "TURN",
-        //                     direction: "LEFT"
-        //                 })
-        //             }
-        //         });
-        //         break;
-        //     case "LOOP":
-        //         this.setState(prevState => {
-        //             return {
-        //                 functions: prevState.functions.concat({
-        //                     type: "LOOP",
-        //                     loopCycles: 1,
-        //                     children: []
-        //                 })
-        //             }
-        //         });
-        //         break;
-        //     default:
-        //         console.error(`Unknown code block type: ${blockType}`);
-        //         break;
-        // }
     }
 
     renderBlock = (blockMetadata, key, parentIndex) => {

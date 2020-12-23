@@ -8,6 +8,7 @@ class ENVIRONMENT {
     STONE = 1;
     GRASS = 2;
     PATH = 3;
+    OBJECTIVE = 99;
     
     WALKABLE_BLOCKS = [this.PATH, this.GRASS];
 }

@@ -11,6 +11,7 @@ import Character from '../gameObjects/Character';
 import CodeEngine from '../codeEngine/CodeEngine';
 import LevelTitle from '../uiElements/LevelTitle';
 import LevelInstructions from '../uiElements/LevelInstructions';
+import ObjectivePoint from '../gameObjects/ObjectivePoint';
 
 class LevelOne extends Component {
     constructor(props){
@@ -48,6 +49,13 @@ class LevelOne extends Component {
                 [2, 2, 2, 2, 2],
                 [2, 2, 2, 2, 2],
                 [2, 2, 2, 2, 2],
+            ],
+            [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 99],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
             ]
         ]
         this.yOffset = 3;
@@ -69,6 +77,8 @@ class LevelOne extends Component {
                 return <StoneBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             case ENVIRONMENT.GRASS:
                 return <GrassBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.OBJECTIVE:
+                return <ObjectivePoint posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             default:
                 return <div></div>;
         }

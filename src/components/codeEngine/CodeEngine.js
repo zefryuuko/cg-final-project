@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import Globals from '../../Globals';
 import _ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
 
+// CodeEngine DOM Elements
 import AddBlockButton from '../uiElements/AddBlockButton';
 import WalkBlock from '../uiElements/WalkBlock';
 import TurnBlock from '../uiElements/TurnBlock';
 import LoopBlock from '../uiElements/LoopBlock';
+import IfBlock from '../uiElements/IfBlock';
 
 class CodeEngine extends Component {
     constructor(props) {
@@ -25,6 +27,14 @@ class CodeEngine extends Component {
             IF: 2,
             LOOP: 3
         });
+
+        // If block value definition
+        this.ifBlockLeftOperandSelection = [
+            { id: "CHARACTER", uiText: "character" }
+        ];
+        this.ifBlockRightOperandSelection = [
+            { id: "CAN_WALK", uiText: "canWalk" }
+        ];
 
         // Reference current CodeEngine instance to globals
         Globals.codeEngine = this;
@@ -59,6 +69,9 @@ class CodeEngine extends Component {
                 case "LOOP":
                     if (!await this.loop(block)) return false;
                     break;
+                case "IF":
+                    if (!await this.if_(block)) return false;
+                    break;
                 default:
                     console.error(`Invalid block type. Received ${block.type}`);
                     return false;
@@ -82,8 +95,8 @@ class CodeEngine extends Component {
         // Check if the player has reached the final position
     }
 
-    walk = async () => {
-        // Va;odate if the player can move forward
+    canWalk() {
+        // Validate if the player can move forward
         let targetX = Globals.character.mesh.position.x;
         let targetZ = Globals.character.mesh.position.z;
 
@@ -108,6 +121,13 @@ class CodeEngine extends Component {
         if (targetZ < 0 || targetZ > 4) return false;
         const targetBlockType = Globals.currentLevel.level[Globals.currentLevel.yOffset][targetX][targetZ];
         if (!_ENVIRONMENT.WALKABLE_BLOCKS.includes(targetBlockType)) return false;
+
+        return true;
+    }
+
+    walk = async () => {
+        // Before walking, check if the character can move into its direction
+        if (!this.canWalk()) return false;
 
         // Send the command to move forward.
         // Return true tells the recursive funciton to contunue running.
@@ -134,6 +154,28 @@ class CodeEngine extends Component {
         for(let i = 0; i < parentBlock.loopCycles; i++) {
             if (!await this.simulate(parentBlock.children)) return false;
         }
+        return true;
+    }
+
+    if_ = async (metadata) => {
+        let operator = metadata.operator === "EQUALS";
+        switch(metadata.leftOperand) {
+            case "CHARACTER":
+                switch(metadata.rightOperand) {
+                    case "CAN_WALK":
+                        if (this.canWalk() === operator) {
+                            await this.simulate(metadata.children);
+                        }
+                        break;
+                    default:
+                        console.error("Invalid if right operand. Received", metadata.rightOperand);
+                }    
+                break;
+            default:
+                console.error("Invalid if left operand. Received", metadata.leftOperand);
+                return false;
+        }
+
         return true;
     }
 
@@ -173,13 +215,22 @@ class CodeEngine extends Component {
                     case "TURN":
                         blockParentRef.push({
                             type: "TURN",
-                            direction: 1    // 1: left, -1: right
+                            direction: "1"    // 1: left, -1: right
                         });
                         break;
                     case "LOOP":
                         blockParentRef.push({
                             type: "LOOP",
                             loopCycles: 2,
+                            children: []
+                        });
+                        break;
+                    case "IF":
+                        blockParentRef.push({
+                            type: "IF",
+                            operator: "EQUALS",
+                            leftOperand: "CHARACTER",
+                            rightOperand: "CAN_WALK",
                             children: []
                         });
                         break;
@@ -274,6 +325,18 @@ class CodeEngine extends Component {
                         loopCycles={blockMetadata.loopCycles}
                     />
                 );
+            case "IF":
+                return (
+                    <IfBlock
+                        key={key}
+                        index={key}
+                        parentIndex={parentIndex}
+                        operator={blockMetadata.operator}
+                        leftOperand={blockMetadata.leftOperand}
+                        rightOperand={blockMetadata.rightOperand}
+                    />
+                );
+                break;
             default:
                 return <div>Invalid data. Received {JSON.stringify(blockMetadata)}</div>;
         }

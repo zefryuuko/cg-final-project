@@ -108,6 +108,24 @@ body {
     background: #e90075;
 }
 
+.codeEngine .block.if p {
+    margin-bottom: 10px;
+}
+
+.codeEngine .block.if .options {
+    display: block;
+    margin-left: -5px;
+    margin-bottom: 10px;
+}
+
+.codeEngine .block.if .form-control.operand {
+    width: 120px;
+}
+
+.codeEngine .block.if .form-control.operator {
+    width: 60px;
+}
+
 .codeEngine .block.loop {
     background: #e98400;
     border: 3px solid #ca710a;

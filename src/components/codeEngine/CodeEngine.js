@@ -336,7 +336,6 @@ class CodeEngine extends Component {
                         rightOperand={blockMetadata.rightOperand}
                     />
                 );
-                break;
             default:
                 return <div>Invalid data. Received {JSON.stringify(blockMetadata)}</div>;
         }

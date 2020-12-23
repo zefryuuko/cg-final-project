@@ -399,31 +399,6 @@ class CodeEngine extends Component {
                         <button className="btn btn-info startSimulation" onClick={() => {this.startSimulation()}} disabled={this.state.isRunning}>Start Simulation</button>
                     </div>
                 }
-                {/* <div className="block function">
-                    function
-                </div>
-                <div className="block if">
-                    if
-                    <AddBlockButton></AddBlockButton>
-                </div>
-                <div className="block loop">
-                    loop
-                    <div className="block function">
-                        function
-                    </div>
-                    <AddBlockButton></AddBlockButton>
-                </div>
-                <div className="block if">
-                    if
-                    <div className="block loop">
-                        loop
-                        <div className="block function">
-                            function
-                        </div>
-                        <AddBlockButton></AddBlockButton>
-                    </div>
-                    <AddBlockButton></AddBlockButton>
-                </div> */}
             </div>
         );
     }

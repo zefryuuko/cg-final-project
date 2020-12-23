@@ -21,6 +21,7 @@ class AddBlockButton extends Component {
                 data-toggle="modal"
                 data-target="#addBlockModal"
                 onClick={this.onButtonClicked}
+                disabled={this.props.disabled}
             >
                 +
             </button>

@@ -66,10 +66,10 @@ class IfBlock extends Component {
     render = () => {
         return (
             <div className="block if" index={this.props.index}>
-                <DeleteBlockButton index={this.props.index} parentIndex={this.props.parentIndex}/>
+                <DeleteBlockButton index={this.props.index} parentIndex={this.props.parentIndex} disabled={this.props.disabled}/>
                 <p>If</p>
                 <div className="options">
-                    <select className="form-control operand" name="leftOperand" value={this.props.leftOperand} onChange={this.onLeftOperandChange}>
+                    <select className="form-control operand" name="leftOperand" value={this.props.leftOperand} onChange={this.onLeftOperandChange} disabled={this.props.disabled}>
                         {
                             Globals.codeEngine.ifBlockLeftOperandSelection.map((option, idx) => {
                                 return (
@@ -78,11 +78,11 @@ class IfBlock extends Component {
                             })
                         }
                     </select>
-                    <select className="form-control operator" name="operator" value={this.props.operator} onChange={this.onOperatorChange}>
+                    <select className="form-control operator" name="operator" value={this.props.operator} onChange={this.onOperatorChange} disabled={this.props.disabled}>
                         <option value="EQUALS">=</option>
                         <option value="NOT_EQUALS">!=</option>
                     </select>
-                    <select className="form-control operand" name="rightOperand" value={this.props.rightOperand} onChange={this.onRightOperandChange}>
+                    <select className="form-control operand" name="rightOperand" value={this.props.rightOperand} onChange={this.onRightOperandChange} disabled={this.props.disabled}>
                         {
                             Globals.codeEngine.ifBlockRightOperandSelection.map((option, idx) => {
                                 return (
@@ -99,7 +99,7 @@ class IfBlock extends Component {
                         })
                     }
                 </div>
-                <AddBlockButton parentBlockIndex={`${this.props.parentIndex} ${this.props.index}`}/>
+                <AddBlockButton parentBlockIndex={`${this.props.parentIndex} ${this.props.index}`} disabled={this.props.disabled}/>
             </div>
         )
     }

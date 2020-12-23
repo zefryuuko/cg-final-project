@@ -44,7 +44,7 @@ class LoopBlock extends Component {
     render = () => {
         return (
             <div className="block loop" index={this.props.index}>
-                <DeleteBlockButton index={this.props.index} parentIndex={this.props.parentIndex}/>
+                <DeleteBlockButton index={this.props.index} parentIndex={this.props.parentIndex} disabled={this.props.disabled}/>
                 <p>Loop</p>
                     <input 
                         type="number"
@@ -53,6 +53,7 @@ class LoopBlock extends Component {
                         max="99"
                         onChange={this.onCycleCountChange}
                         value={this.props.loopCycles}
+                        disabled={this.props.disabled}
                     />
                 <p>times</p>
                 <div className="children">
@@ -62,7 +63,7 @@ class LoopBlock extends Component {
                         })
                     }
                 </div>
-                <AddBlockButton parentBlockIndex={`${this.props.parentIndex} ${this.props.index}`}/>
+                <AddBlockButton parentBlockIndex={`${this.props.parentIndex} ${this.props.index}`} disabled={this.props.disabled}/>
             </div>
         )
     }

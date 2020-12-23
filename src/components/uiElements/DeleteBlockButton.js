@@ -12,6 +12,7 @@ class DeleteBlockButton extends Component {
             <button 
                 className="btnDeleteBlock"
                 onClick={this.onButtonClicked}
+                disabled={this.props.disabled}
             >
                 -
             </button>

@@ -45,6 +45,15 @@ class CodeEngine extends Component {
     }
 
     startSimulation = (functions) => {
+        // Disable buttons
+        this.setState(
+            { isRunning: true },
+            () => {
+                this.forceUpdate();
+            }
+        );
+
+        // Run recursive simulation function
         this.simulate(this.state.functions).then((runSuccessfuly) => {
             if (!runSuccessfuly) {
                 this.resetLevel();
@@ -63,9 +72,15 @@ class CodeEngine extends Component {
     }
 
     resetLevel = () => {
-        // Reset to its original state
+        // Reset level to its original state
         console.error("Simulation failed");
         Globals.character.respawn();
+        this.setState(
+            { isRunning: false },
+            () => {
+                this.forceUpdate();
+            }
+        );
     }
 
     simulate = async (parent) => {
@@ -317,7 +332,12 @@ class CodeEngine extends Component {
         switch(blockMetadata.type) {
             case "WALK":
                 return (
-                    <WalkBlock key={key} index={key} parentIndex={parentIndex}/>
+                    <WalkBlock
+                        key={key}
+                        index={key}
+                        parentIndex={parentIndex}
+                        disabled={this.state.isRunning}
+                    />
                 );
             case "TURN":
                 return (
@@ -326,6 +346,7 @@ class CodeEngine extends Component {
                         index={key} 
                         parentIndex={parentIndex}
                         direction={blockMetadata.direction}
+                        disabled={this.state.isRunning}
                     />
                 );
             case "LOOP":
@@ -335,6 +356,7 @@ class CodeEngine extends Component {
                         index={key}
                         parentIndex={parentIndex}
                         loopCycles={blockMetadata.loopCycles}
+                        disabled={this.state.isRunning}
                     />
                 );
             case "IF":
@@ -346,6 +368,7 @@ class CodeEngine extends Component {
                         operator={blockMetadata.operator}
                         leftOperand={blockMetadata.leftOperand}
                         rightOperand={blockMetadata.rightOperand}
+                        disabled={this.state.isRunning}
                     />
                 );
             default:
@@ -386,8 +409,8 @@ class CodeEngine extends Component {
                     </div>
                     <AddBlockButton></AddBlockButton>
                 </div> */}
-                <AddBlockButton parentBlockIndex="-1"/>
-                <button onClick={() => {this.startSimulation()}}>Start Simulation</button>
+                <AddBlockButton parentBlockIndex="-1" disabled={this.state.isRunning}/>
+                <button onClick={() => {this.startSimulation()}} disabled={this.state.isRunning}>Start Simulation</button>
             </div>
         );
     }

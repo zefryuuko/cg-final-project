@@ -15,9 +15,9 @@ class TurnBlock extends Component {
     render = () => {
         return (
             <div className="block function" index={this.props.index}>
-                <DeleteBlockButton index={this.props.index} parentIndex={this.props.parentIndex}/>
+                <DeleteBlockButton index={this.props.index} parentIndex={this.props.parentIndex} disabled={this.props.disabled}/>
                 <p>Turn</p>
-                <select className="form-control" value={this.props.direction} onChange={this.onSelectionChange}>
+                <select className="form-control" value={this.props.direction} onChange={this.onSelectionChange} disabled={this.props.disabled}>
                     <option value="-1">Left</option>
                     <option value="1">Right</option>
                 </select>

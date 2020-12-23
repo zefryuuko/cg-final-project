@@ -90,7 +90,7 @@ class LevelOne extends Component {
                 {/* Level Details */}
                 <div className="levelPanel">
                     <LevelTitle heading="Level One" subheading="The Basics"/>
-                    <CodeEngine/>
+                    <CodeEngine yOffset={this.yOffset}/>
                     <LevelInstructions>
                         <b>Welcome to your first level!</b><br/>
                         To complete this level, you need to walk the

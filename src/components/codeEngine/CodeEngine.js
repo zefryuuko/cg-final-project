@@ -47,14 +47,25 @@ class CodeEngine extends Component {
     startSimulation = (functions) => {
         this.simulate(this.state.functions).then((runSuccessfuly) => {
             if (!runSuccessfuly) {
-                // Reset to its original state
-                console.error("Simulation failed");
-                Globals.character.respawn();
+                this.resetLevel();
             } else {
-                console.log("Simulation ran successfuly.");
-                // Transition to the next scene
+                const characterPosition = Globals.character.mesh.position;
+                const characterIsOnObjective = Globals.currentLevel.level[characterPosition.y + this.props.yOffset][characterPosition.x][characterPosition.z] === _ENVIRONMENT.OBJECTIVE;
+                if (characterIsOnObjective) this.finishLevel();
+                else this.resetLevel()
             }
         });
+    }
+    
+    finishLevel = () => {
+        console.log("Simulation ran successfuly.");
+        // Transition to the next scene
+    }
+
+    resetLevel = () => {
+        // Reset to its original state
+        console.error("Simulation failed");
+        Globals.character.respawn();
     }
 
     simulate = async (parent) => {
@@ -165,7 +176,7 @@ class CodeEngine extends Component {
                 switch(metadata.rightOperand) {
                     case "CAN_WALK":
                         if (this.canWalk() === operator) {
-                            await this.simulate(metadata.children);
+                            if(!await this.simulate(metadata.children)) return false;
                         }
                         break;
                     default:

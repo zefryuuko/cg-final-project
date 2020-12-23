@@ -94,8 +94,64 @@ class Character extends Component {
                 // Use rotation data from component properties
                 this.characterFaceDirection = faceDirection;
                 this.mesh.rotation.y += Math.PI * 0.5 * faceDirection;
+
+                // Start spawn animation after loading mesh
+                this.startSpawnAnimation();
             }
         );
+    }
+
+    startSpawnAnimation = () => {
+        const yOffset = this.props.yOffset ? this.props.yOffset : 0;
+        const posY = this.props.posY ? this.props.posY : 0;
+        const animationDelaySeconds = (yOffset + posY) * 0.2 + 1;
+        
+        const spawnAnimation = new BABYLON.Animation(
+            "spawnAnimation", 
+            "position", 
+            Globals.framerate, 
+            BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+        );
+        
+        const keyFrames = [];
+        keyFrames.push({
+            frame: 0,
+            value: new BABYLON.Vector3(
+                this.props.posX,
+                100,
+                this.props.posZ
+            ),
+        });
+        keyFrames.push({
+            frame: (animationDelaySeconds * Globals.framerate) + (0.1 * Globals.framerate) - 1,
+            value: new BABYLON.Vector3(
+                this.props.posX,
+                100,
+                this.props.posZ
+            ),
+        });
+        keyFrames.push({
+            frame: (animationDelaySeconds * Globals.framerate) + (0.1 * Globals.framerate),
+            value: new BABYLON.Vector3(
+                this.props.posX,
+                this.props.posY + 0.5,
+                this.props.posZ
+            ),
+        });
+        keyFrames.push({
+            frame: (animationDelaySeconds * Globals.framerate) + (0.3 * Globals.framerate),
+            value: new BABYLON.Vector3(
+                this.props.posX,
+                this.props.posY,
+                this.props.posZ
+            ),
+        });
+        spawnAnimation.setKeys(keyFrames);
+
+        this.mesh.animations.push(spawnAnimation);
+        
+        Globals.scene.beginAnimation(this.mesh, 0, (animationDelaySeconds * Globals.framerate) + (0.3 * Globals.framerate), false);
     }
 
     walk = () => {

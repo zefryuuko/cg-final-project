@@ -94,11 +94,9 @@ class CodeEngine extends Component {
                 targetX -= 1;
                 break;
             case 2: // Z+
-                console.log("case 2")
                 targetZ += 1;
                 break;
             case 3: // X+
-                console.log("case 3")
                 targetX += 1;
                 break;
             default:
@@ -151,7 +149,6 @@ class CodeEngine extends Component {
     }
 
     addBlock = (blockType, parentIndex) => {
-        console.log(`Adding ${blockType} to ${parentIndex}`);
         this.setState(
             prevState => {
                 // Duplicate the state to another variable
@@ -201,7 +198,6 @@ class CodeEngine extends Component {
     }
 
     updateBlock = (parentIndex, blockIndex, newState) => {
-        console.log(`Removing index ${blockIndex} from ${parentIndex}`);
         this.setState(
             prevState => {
                 // Duplicate the state to another variable
@@ -229,7 +225,6 @@ class CodeEngine extends Component {
     }
 
     deleteBlock = (parentIndex, blockIndex) => {
-        console.log(`Removing index ${blockIndex} from ${parentIndex}`);
         this.setState(
             prevState => {
                 // Duplicate the state to another variable
@@ -274,7 +269,6 @@ class CodeEngine extends Component {
     }
 
     render = () => {
-        console.log(this.state.functions);
         return (
             <div className="codeEngine">
                 {

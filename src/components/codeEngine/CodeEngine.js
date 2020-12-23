@@ -4,6 +4,7 @@ import _ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
 
 import AddBlockButton from '../uiElements/AddBlockButton';
 import WalkBlock from '../uiElements/WalkBlock';
+import TurnBlock from '../uiElements/TurnBlock';
 import LoopBlock from '../uiElements/LoopBlock';
 
 class CodeEngine extends Component {
@@ -253,6 +254,15 @@ class CodeEngine extends Component {
             case "WALK":
                 return (
                     <WalkBlock key={key} index={key} parentIndex={parentIndex}/>
+                );
+            case "TURN":
+                return (
+                    <TurnBlock 
+                        key={key} 
+                        index={key} 
+                        parentIndex={parentIndex}
+                        direction={blockMetadata.direction}
+                    />
                 );
             case "LOOP":
                 return (

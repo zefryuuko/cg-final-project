@@ -87,12 +87,21 @@ body {
     display: inline-block;
 }
 
+.codeEngine .block .form-control {
+    display: inline-block !important;
+    margin: 0 5px 0 5px;
+}
+
 .codeEngine .block.function {
     background: #009fe9;
 }
 
 .codeEngine .block.function p {
     margin: 0;
+}
+
+.codeEngine .block.function .form-control {
+    width: 100px;
 }
 
 .codeEngine .block.if {
@@ -105,9 +114,7 @@ body {
 }
 
 .codeEngine .block.loop .form-control {
-    display: inline-block !important;
     width: 65px;
-    margin: 0 5px 0 5px;
 }
 
 .codeEngine .btnAddBlock {

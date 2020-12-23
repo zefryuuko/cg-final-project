@@ -144,6 +144,10 @@ body {
     border: 0;
 }
 
+.codeEngine .btnAddBlock.parentAddBlock {
+    margin-bottom: 50px;
+}
+
 .codeEngine .block.if .btnAddBlock {
     margin-bottom: 0;
     background: #bb083e;
@@ -162,4 +166,15 @@ body {
     display: inline-block;
     background: #bbbbbb;
     border: 0;
+}
+
+.codeEngine .startSimulation {
+    width: 300px !important;
+    position: absolute;
+    bottom: 205px;
+    margin-left:40px;
+}
+
+.winScreen {
+    text-align: center;
 }

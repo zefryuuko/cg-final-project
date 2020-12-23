@@ -117,16 +117,17 @@ class CodeEngine extends Component {
 
     turn = async (direction) => {
         switch(direction) {
-            case 1: // Turn right
+            case "1": // Turn right
                 Globals.character.turnRight();
                 break;
-            case 2: // Turn left
+            case "-1": // Turn left
                 Globals.character.turnLeft();
                 break;
             default:
                 console.error(`Invalid turn direction. Received ${direction}`);
                 break;
         }
+        return true;
     }
 
     loop = async (parentBlock) => {

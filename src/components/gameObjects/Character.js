@@ -321,7 +321,7 @@ class Character extends Component {
         
         // Rotate player to its original state
         this.mesh.rotation.y = Math.PI * 0.5 * this.props.faceDirection;
-
+        this.characterFaceDirection = this.props.faceDirection;
     }
     
     render = () => {

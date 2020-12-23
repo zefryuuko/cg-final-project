@@ -207,6 +207,66 @@ class Character extends Component {
 
         Globals.scene.beginAnimation(this.mesh, 0, this.animationSpeed * Globals.framerate, false);
     }
+
+    respawn = () => {
+        const respawnPositionAnimation = new BABYLON.Animation(
+            "characterRespawnPosition",
+            "position",
+            Globals.framerate,
+            BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+        );        
+        const positionKeyframe = [];
+        positionKeyframe.push({
+            frame: 0,
+            value: this.mesh.position
+        });
+        positionKeyframe.push({
+            frame: 0.2 * Globals.framerate,
+            value: new BABYLON.Vector3(
+                this.mesh.position.x,
+                1.5,
+                this.mesh.position.z
+            )
+        });
+        positionKeyframe.push({
+            frame: 0.2 * Globals.framerate + 1,
+            value: new BABYLON.Vector3(
+                this.mesh.position.x,
+                1.5,
+                this.mesh.position.z
+            )
+        });
+        positionKeyframe.push({
+            frame: 0.4 * Globals.framerate,
+            value: new BABYLON.Vector3(
+                this.props.posX,
+                1.5,
+                this.props.posZ
+            )
+        });
+        positionKeyframe.push({
+            frame: 0.7 * Globals.framerate,
+            value: new BABYLON.Vector3(
+                this.props.posX,
+                this.props.posY,
+                this.props.posZ
+            )
+        });
+        respawnPositionAnimation.setKeys(positionKeyframe);
+        
+        // Pop the last animation before adding another one
+        if (this.mesh.animations.length > 0)
+            this.mesh.animations.pop();
+        this.mesh.animations.push(respawnPositionAnimation);
+
+        // Move character to spawn point
+        Globals.scene.beginAnimation(this.mesh, 0, 0.8 * Globals.framerate, false);
+        
+        // Rotate player to its original state
+        this.mesh.rotation.y = Math.PI * 0.5 * this.props.faceDirection;
+
+    }
     
     render = () => {
         return (

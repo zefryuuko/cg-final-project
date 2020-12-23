@@ -49,6 +49,7 @@ class CodeEngine extends Component {
             if (!runSuccessfuly) {
                 // Reset to its original state
                 console.error("Simulation failed");
+                Globals.character.respawn();
             } else {
                 console.log("Simulation ran successfuly.");
                 // Transition to the next scene

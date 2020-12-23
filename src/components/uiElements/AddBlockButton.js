@@ -15,9 +15,10 @@ class AddBlockButton extends Component {
     }
 
     render = () => {
+        let parentAddBlock = this.props.parent ? "parentAddBlock" : null;
         return (
             <button 
-                className="btnAddBlock" 
+                className={`btnAddBlock ${parentAddBlock}`}
                 data-toggle="modal"
                 data-target="#addBlockModal"
                 onClick={this.onButtonClicked}

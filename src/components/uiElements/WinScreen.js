@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class WinScreen extends Component {
     render() {
@@ -7,7 +8,7 @@ class WinScreen extends Component {
                 <h1>Level Passed!</h1>
                 { this.props.children }
                 <p>Congratulations! You passed the first level.</p>
-                <button className="btn btn-lg btn-success">{this.props.buttonText ? this.props.buttonText : "Next Level"}</button>
+                <Link to={this.props.nextLevel} className="btn btn-lg btn-success">{this.props.buttonText ? this.props.buttonText : "Next Level"}</Link>
             </div>
         )
     }

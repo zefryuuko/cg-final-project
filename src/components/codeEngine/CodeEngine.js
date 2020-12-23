@@ -388,7 +388,7 @@ class CodeEngine extends Component {
             <div className="codeEngine">
                 {
                     this.state.isObjectiveReached ?
-                    <WinScreen></WinScreen>
+                    <WinScreen nextLevel={this.props.nextLevel}/>
                     : <div>
                         {
                             this.state.functions.map((data, key) => {

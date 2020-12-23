@@ -4,6 +4,7 @@ import _ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
 
 // CodeEngine DOM Elements
 import AddBlockButton from '../uiElements/AddBlockButton';
+import WinScreen from '../uiElements/WinScreen';
 import WalkBlock from '../uiElements/WalkBlock';
 import TurnBlock from '../uiElements/TurnBlock';
 import LoopBlock from '../uiElements/LoopBlock';
@@ -17,7 +18,8 @@ class CodeEngine extends Component {
             functions: [],
             hasBlockCountLimit: false,
             blockCountLimit: -1,
-            isRunning: false
+            isRunning: false,
+            isObjectiveReached: false
         }
 
         // Block types enum
@@ -68,7 +70,12 @@ class CodeEngine extends Component {
     
     finishLevel = () => {
         console.log("Simulation ran successfuly.");
-        // Transition to the next scene
+        this.setState(
+            { isRunning: false, isObjectiveReached: true },
+            () => {
+                this.forceUpdate();
+            }
+        );
     }
 
     resetLevel = () => {
@@ -380,9 +387,17 @@ class CodeEngine extends Component {
         return (
             <div className="codeEngine">
                 {
-                    this.state.functions.map((data, key) => {
-                        return this.renderBlock(data, key, "-1");
-                    })
+                    this.state.isObjectiveReached ?
+                    <WinScreen></WinScreen>
+                    : <div>
+                        {
+                            this.state.functions.map((data, key) => {
+                                return this.renderBlock(data, key, "-1");
+                            })
+                        }
+                        <AddBlockButton parentBlockIndex="-1" disabled={this.state.isRunning} parent="1"/>
+                        <button className="btn btn-info startSimulation" onClick={() => {this.startSimulation()}} disabled={this.state.isRunning}>Start Simulation</button>
+                    </div>
                 }
                 {/* <div className="block function">
                     function
@@ -409,8 +424,6 @@ class CodeEngine extends Component {
                     </div>
                     <AddBlockButton></AddBlockButton>
                 </div> */}
-                <AddBlockButton parentBlockIndex="-1" disabled={this.state.isRunning}/>
-                <button onClick={() => {this.startSimulation()}} disabled={this.state.isRunning}>Start Simulation</button>
             </div>
         );
     }

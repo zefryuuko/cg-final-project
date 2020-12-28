@@ -34,7 +34,7 @@ body {
 
 .levelPanel .titlePanel {
     height: 70px;
-    padding: 10px;
+    padding: 7px 10px 0 10px;
     background: #ffffff;
     border-bottom: 2px solid #dadada;
 }
@@ -46,7 +46,8 @@ body {
 }
 
 .levelPanel .titlePanel p {
-    margin: -5px 0 0 2px;
+    margin: -5px 0 0 0px;
+    color: #3d3d3d;
 }
 
 .instructionsPanel {
@@ -65,6 +66,8 @@ body {
 .instructionsPanel p {
     color: #000000;
     padding: 10px;
+    height: 154px;
+    overflow-y: scroll;
 }
 
 .codeEngine {

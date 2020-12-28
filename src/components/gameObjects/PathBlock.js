@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as BABYLON from 'babylonjs';
 import Globals from '../../Globals';
 
-class GrassBlock extends Component {
+class PathBlock extends Component {
     constructor(props) {
         super(props);
         this.mesh = undefined;
@@ -52,7 +52,7 @@ class GrassBlock extends Component {
 
     applyMaterial = () => {
         let material = new BABYLON.StandardMaterial("GrassBlockMaterial", Globals.scene);
-        let texture = new BABYLON.Texture("assets/textures/grass_block.jpg", Globals.scene);
+        let texture = new BABYLON.Texture("assets/textures/path_block.jpg", Globals.scene);
         material.diffuseTexture = texture;
         material.specularColor = new BABYLON.Color3(0, 0, 0);
 
@@ -100,4 +100,4 @@ class GrassBlock extends Component {
     }
 }
 
-export default GrassBlock
+export default PathBlock

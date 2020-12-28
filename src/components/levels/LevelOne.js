@@ -5,11 +5,11 @@ import Globals from '../../Globals';
 // Babylon Objects
 import StoneBlock from '../gameObjects/StoneBlock';
 import GrassBlock from '../gameObjects/GrassBlock';
+import PathBlock from '../gameObjects/PathBlock';
 import TreeOne from '../gameObjects/TreeOne';
 import TreeTwo from '../gameObjects/TreeTwo';
 import RockOne from '../gameObjects/RockOne';
 import RockTwo from '../gameObjects/RockTwo';
-
 import Campfire from '../gameObjects/Campfire';
 import Tent from '../gameObjects/Tent';
 import Fence from '../gameObjects/Fence';
@@ -27,6 +27,9 @@ class LevelOne extends Component {
         this.state = {
             environmentSpawned: false
         }
+
+        // Update allowed functions
+        this.allowedBlocks = ["WALK", "TURN"];
 
         // level[y][x][z]
         this.level = [ 
@@ -53,17 +56,17 @@ class LevelOne extends Component {
             ],
             [
                 [2, 2, 2, 2, 2],
-                [2, 2, 2, 2, 2],
-                [2, 2, 2, 2, 2],
-                [2, 2, 2, 2, 2],
+                [2, 3, 3, 3, 2],
+                [2, 2, 2, 3, 2],
+                [2, 2, 2, 3, 2],
                 [2, 2, 2, 2, 2],
             ],
             [
+                [0, 13, 0, 0, 11],
                 [0, 0, 0, 0, 0],
-                [0, 0, 19, 0, 0],
-                [0, 0, 0, 0, 99],
-                [0, 0, 0, 0, 0],
-                [11, 0, 0, 0, 0],
+                [0, 18, 0, 0, 19],
+                [0, 0, 0, 99, 0],
+                [0, 10, 0, 12, 0],
             ]
         ]
         this.yOffset = 3;
@@ -85,6 +88,8 @@ class LevelOne extends Component {
                 return <StoneBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             case ENVIRONMENT.GRASS:
                 return <GrassBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.PATH:
+                return <PathBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             case ENVIRONMENT.OBJECTIVE:
                 return <ObjectivePoint posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             case ENVIRONMENT.TREE_1:
@@ -142,7 +147,7 @@ class LevelOne extends Component {
                 }
 
                 {/* Spawn player object */}
-                <Character posX={0} posY={1} posZ={0} yOffset={this.yOffset} faceDirection={2}/>
+                <Character posX={1} posY={1} posZ={1} yOffset={this.yOffset} faceDirection={2}/>
             </div>
         )
     }

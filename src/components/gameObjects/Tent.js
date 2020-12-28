@@ -41,13 +41,14 @@ class Tent extends Component {
                 meshes.forEach((mesh) => {
                     mesh.setParent(this.mesh);
                     mesh.position.y -= 0.5;
-                    mesh.position.x += 0.5;
+                    mesh.position.x -= 0.5;
                 });
 
                 // Modify parent mesh properties
                 this.mesh.position.x = posX;
                 this.mesh.position.y = posY;
                 this.mesh.position.z = posZ;
+                this.mesh.rotation.y = Math.PI;
 
                 this.startSpawnAnimation();
             }

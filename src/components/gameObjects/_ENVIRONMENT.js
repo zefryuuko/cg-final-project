@@ -21,7 +21,7 @@ class ENVIRONMENT {
     FENCE = 19;
     OBJECTIVE = 99;
     
-    WALKABLE_BLOCKS = [this.PATH, this.GRASS];
+    WALKABLE_BLOCKS = [this.PATH];
 }
 
 // Freeze the object to prevent changes

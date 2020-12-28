@@ -12,6 +12,7 @@ class AddBlockButton extends Component {
     onButtonClicked = () => {
         // Set the modal's parent index reference
         Globals.addBlockModal.parentBlockIndex = this.props.parentBlockIndex;
+        Globals.addBlockModal.updateAllowedBlockTypes(Globals.currentLevel.allowedBlocks);
     }
 
     render = () => {

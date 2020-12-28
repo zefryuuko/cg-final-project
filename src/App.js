@@ -14,6 +14,7 @@ import LevelFour from './components/levels/LevelFour';
 
 // Menus
 import MainMenu from './components/levels/MainMenu';
+import VictoryMenu from './components/levels/VictoryMenu';
 
 class App extends Component {
     state = {  }
@@ -41,7 +42,7 @@ class App extends Component {
                                 <LevelFour/>
                             </Route>
                             <Route path="/cg-final-project/win">
-                                {/* Create win scene */}
+                                <VictoryMenu/>
                             </Route>
                         </Switch>
                     </div>

@@ -118,7 +118,7 @@ class LevelTwo extends Component {
                 {/* Level Details */}
                 <div className="levelPanel">
                     <LevelTitle heading="Level Two" subheading="Loops"/>
-                    <CodeEngine yOffset={this.yOffset} nextLevel="/cg-final-project/level-3"/>
+                    <CodeEngine yOffset={this.yOffset} blockCountLimit={this.blockCountLimit} nextLevel="/cg-final-project/level-3"/>
                     <LevelInstructions>
                         <b>Loops in code</b><br/>
                         The loop function allows you to run tasks multiple times.

@@ -17,15 +17,19 @@ class AddBlockButton extends Component {
 
     render = () => {
         let parentAddBlock = this.props.parent ? "parentAddBlock" : null;
+        let isBlockLimitReached = this.props.blockCount >= this.props.blockCountLimit
         return (
             <button 
-                className={`btnAddBlock ${parentAddBlock}`}
+                className={`btnAddBlock ${parentAddBlock} ${this.props.className}`}
                 data-toggle="modal"
                 data-target="#addBlockModal"
                 onClick={this.onButtonClicked}
-                disabled={this.props.disabled}
+                disabled={this.props.disabled || isBlockLimitReached }
             >
                 +
+                {
+                    this.props.blockCountLimit > 0 ? ` (${this.props.blockCountLimit - this.props.blockCount} left)` : null
+                }
             </button>
         )
     }

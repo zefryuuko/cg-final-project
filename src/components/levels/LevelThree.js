@@ -133,7 +133,7 @@ class LevelThree extends Component {
                 {/* Level Details */}
                 <div className="levelPanel">
                     <LevelTitle heading="Level Three" subheading="Nested Loops"/>
-                    <CodeEngine yOffset={this.yOffset} nextLevel="/cg-final-project/level-4"/>
+                    <CodeEngine yOffset={this.yOffset} blockCountLimit={this.blockCountLimit} nextLevel="/cg-final-project/level-4"/>
                     <LevelInstructions>
                         <b>A loop inside of a loop</b><br/>
                         The loop function allows you to run any functions multiple times, 

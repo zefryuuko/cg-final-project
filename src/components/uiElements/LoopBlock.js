@@ -63,7 +63,7 @@ class LoopBlock extends Component {
                         })
                     }
                 </div>
-                <AddBlockButton parentBlockIndex={`${this.props.parentIndex} ${this.props.index}`} disabled={this.props.disabled}/>
+                <AddBlockButton className="btnAddBlockLoop" parentBlockIndex={`${this.props.parentIndex} ${this.props.index}`} disabled={this.props.disabled} blockCount={this.props.blockCount} blockCountLimit={this.props.blockCountLimit}/>
             </div>
         )
     }

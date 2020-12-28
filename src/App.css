@@ -99,18 +99,20 @@ body {
 
 .codeEngine .block.function {
     background: #009fe9;
+    border: 3px solid #007ab3;
 }
 
 .codeEngine .block.function p {
     margin: 0;
 }
 
-.codeEngine .block.function .form-control {
+.codeEngine .block.function > .form-control {
     width: 100px;
 }
 
 .codeEngine .block.if {
     background: #e90075;
+    border: 3px solid #bb083e;
 }
 
 .codeEngine .block.if p {
@@ -136,7 +138,7 @@ body {
     border: 3px solid #ca710a;
 }
 
-.codeEngine .block.loop .form-control {
+.codeEngine .block.loop > .form-control {
     width: 65px;
 }
 
@@ -153,13 +155,13 @@ body {
     margin-bottom: 50px;
 }
 
-.codeEngine .block.if .btnAddBlock {
+.codeEngine .block.if .btnAddBlockIf {
     margin-bottom: 0;
     background: #bb083e;
     color: #ffffff;
 }
 
-.codeEngine .block.loop .btnAddBlock {
+.codeEngine .block.loop .btnAddBlockLoop {
     margin-bottom: 0;
     background: #ca710a;
     color: #ffffff;

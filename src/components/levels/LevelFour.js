@@ -119,7 +119,7 @@ class LevelFour extends Component {
                 {/* Level Details */}
                 <div className="levelPanel">
                     <LevelTitle heading="Level Four" subheading="If Statemets"/>
-                    <CodeEngine yOffset={this.yOffset} nextLevel="/cg-final-project/win"/>
+                    <CodeEngine yOffset={this.yOffset} blockCountLimit={this.blockCountLimit} nextLevel="/cg-final-project/win"/>
                     <LevelInstructions>
                         <b>What if this happens...</b><br/>
                         If statement allows you to execute functions if

@@ -17,7 +17,8 @@ class CodeEngine extends Component {
         this.state = {
             functions: [],
             hasBlockCountLimit: false,
-            blockCountLimit: -1,
+            blockCountLimit: this.props.blockCountLimit,
+            blockCount: 0,
             isRunning: false,
             isObjectiveReached: false
         }
@@ -275,7 +276,8 @@ class CodeEngine extends Component {
 
                 // Return the new functions array
                 return {
-                    functions: newFunctions
+                    functions: newFunctions,
+                    blockCount: prevState.blockCount + 1
                 }
             },
             () => {
@@ -326,7 +328,8 @@ class CodeEngine extends Component {
 
                 // Return the new functions array
                 return {
-                    functions: newFunctions
+                    functions: newFunctions,
+                    blockCount: prevState.blockCount - 1
                 }
             },
             () => {
@@ -364,6 +367,8 @@ class CodeEngine extends Component {
                         parentIndex={parentIndex}
                         loopCycles={blockMetadata.loopCycles}
                         disabled={this.state.isRunning}
+                        blockCount={this.state.blockCount}
+                        blockCountLimit={this.state.blockCountLimit}
                     />
                 );
             case "IF":
@@ -376,6 +381,8 @@ class CodeEngine extends Component {
                         leftOperand={blockMetadata.leftOperand}
                         rightOperand={blockMetadata.rightOperand}
                         disabled={this.state.isRunning}
+                        blockCount={this.state.blockCount}
+                        blockCountLimit={this.state.blockCountLimit}
                     />
                 );
             default:
@@ -395,7 +402,7 @@ class CodeEngine extends Component {
                                 return this.renderBlock(data, key, "-1");
                             })
                         }
-                        <AddBlockButton parentBlockIndex="-1" disabled={this.state.isRunning} parent="1"/>
+                        <AddBlockButton parentBlockIndex="-1" disabled={this.state.isRunning} parent="1" blockCount={this.state.blockCount} blockCountLimit={this.state.blockCountLimit}/>
                         <button className="btn btn-info startSimulation" onClick={() => {this.startSimulation()}} disabled={this.state.isRunning}>Start Simulation</button>
                     </div>
                 }

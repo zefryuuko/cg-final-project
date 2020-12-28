@@ -112,7 +112,7 @@ class CodeEngine extends Component {
             }
 
             // Do not add any execution delay if the current block is loop
-            if (block.type !== "LOOP") await this.delayAction(1000);
+            if (block.type !== "LOOP" && block.type !== "IF") await this.delayAction(1000);
             
             // Check if the player has reached the final position
         }

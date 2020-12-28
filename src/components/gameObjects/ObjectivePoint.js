@@ -6,6 +6,7 @@ class ObjectivePoint extends Component {
     constructor(props) {
         super(props);
         this.mesh = undefined;
+        this.particleSystem = undefined;
     }
     
     componentDidMount = () => {
@@ -16,6 +17,7 @@ class ObjectivePoint extends Component {
 
     componentWillUnmount = () => {
         this.mesh.dispose();
+        this.particleSystem.dispose();
     }
 
     createMesh = () => {
@@ -27,14 +29,16 @@ class ObjectivePoint extends Component {
         // Create mesh
         this.mesh = BABYLON.MeshBuilder.CreateBox(
             `objectivePoint_${posX},${posY},${posZ}`,
-            { height: 1, width: 1, depth: 1 },
+            { height: 0.15, width: 0.8, depth: 0.8 },
             Globals.scene
         );
 
         // Modify mesh properties
         this.mesh.position.x = posX;
-        this.mesh.position.y = posY;
+        this.mesh.position.y = posY - 0.5;
         this.mesh.position.z = posZ;
+
+        this.createParticleSystem(posX, posY - 0.5, posZ);
     }
 
     applyMaterial = () => {
@@ -59,10 +63,11 @@ class ObjectivePoint extends Component {
         //     // uniforms: ["world", "worldView", "worldViewProjection", "view", "project"]
         // });
         material.specularColor = new BABYLON.Color3(0, 0, 0);
+        material.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.3);
         material.backFaceCulling = false;
 
         // Apply material to mesh
-        // this.mesh.material = shaderMaterial;
+        this.mesh.material = material;
     }
 
     startSpawnAnimation = () => {
@@ -98,6 +103,13 @@ class ObjectivePoint extends Component {
         Globals.scene.beginAnimation(this.mesh, 0, (animationDelaySeconds * Globals.framerate) + (0.3 * Globals.framerate), false);
     }
 
+    createParticleSystem = (posX, posY, posZ) => {
+        this.particleSystem = BABYLON.ParticleHelper.CreateDefault(new BABYLON.Vector3(posX, posY, posZ));
+        this.particleSystem.updateSpeed = 0.005;
+        this.particleSystem.minLifeTime = 0.1;
+        this.particleSystem.maxLifeTime = 0.5;
+        this.particleSystem.start(this.props.yOffset * 1000);
+    }
 
     render = () => {
         return (

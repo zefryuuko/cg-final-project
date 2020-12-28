@@ -12,6 +12,9 @@ import LevelTwo from './components/levels/LevelTwo';
 import LevelThree from './components/levels/LevelThree';
 import LevelFour from './components/levels/LevelFour';
 
+// Menus
+import MainMenu from './components/levels/MainMenu';
+
 class App extends Component {
     state = {  }
 
@@ -22,9 +25,9 @@ class App extends Component {
                     <div className="AppContainer">
                         <BabylonCanvas/>
                         <Switch className="LevelContainer">
-                            {/* <Route path="/"> */}
-                                {/* Create main menu scene */}
-                            {/* </Route> */}
+                            <Route path="/cg-final-project/" exact>
+                                <MainMenu/>
+                            </Route>
                             <Route path="/cg-final-project/level-1">
                                 <LevelOne/>
                             </Route>
@@ -36,6 +39,9 @@ class App extends Component {
                             </Route>
                             <Route path="/cg-final-project/level-4">
                                 <LevelFour/>
+                            </Route>
+                            <Route path="/cg-final-project/win">
+                                {/* Create win scene */}
                             </Route>
                         </Switch>
                     </div>

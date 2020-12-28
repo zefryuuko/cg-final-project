@@ -90,7 +90,7 @@ class LevelThree extends Component {
     }
 
     componentDidMount() {
-        
+        Globals.babylonCanvas.enableCameraControl();
     }
 
     spawnEnvironmentItem(x, y, z, type) {

@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import * as BABYLON from "babylonjs";
 import Globals from './Globals';
 
-// Temp definitions, delete later
-var scene;
-var boxMesh;
-
 class BabylonCanvas extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +9,9 @@ class BabylonCanvas extends Component {
         this.hemisphericLight = undefined;
         this.underMapLighting = undefined;
         this.arcRotateCamera = undefined;
+        this.backgroundMusic = undefined;
+
+        Globals.babylonCanvas = this;
     }
     
     componentDidMount = () => {        
@@ -24,9 +23,7 @@ class BabylonCanvas extends Component {
         this.addLight();
         this.addCamera();
         this.addSkybox();
-
-        // this.addModels();
-        // this.addGround();
+        this.addMusic();
 
         // Add Events
         window.addEventListener("resize", this.onWindowResize, false);
@@ -46,6 +43,7 @@ class BabylonCanvas extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.onWindowResize, false);
+        this.backgroundMusic.stop();
     }
 
     onWindowResize = event => {
@@ -85,9 +83,9 @@ class BabylonCanvas extends Component {
     };
 
     addSkybox = () => {
-        var photoSphere = BABYLON.Mesh.CreateSphere("skybox", 16.0, 50.0, scene);
+        var photoSphere = BABYLON.Mesh.CreateSphere("skybox", 16.0, 50.0, Globals.scene);
 
-        var skyboxMaterial = new BABYLON.StandardMaterial("skyboxMaterial", scene);
+        var skyboxMaterial = new BABYLON.StandardMaterial("skyboxMaterial", Globals.scene);
         skyboxMaterial.emissiveTexture = new BABYLON.Texture(
             "assets/other/skybox.png",
             Globals.scene,
@@ -127,37 +125,35 @@ class BabylonCanvas extends Component {
         this.arcRotateCamera.beta = Math.PI / 2.5;
     };
 
-    addGround = () => {
-        // Create a built-in "ground" shape.
-        var ground = BABYLON.MeshBuilder.CreateGround(
-            "ground1",
-            { height: 6, width: 6, subdivisions: 2 },
-            scene
-        );
-        var groundMaterial = new BABYLON.StandardMaterial("grass0", scene);
-        groundMaterial.diffuseTexture = new BABYLON.Texture(
-            "./assets/ground.jpeg",
-            scene
-        );
-        ground.material = groundMaterial;
-    };
+    addMusic = () => {
+        this.backgroundMusic = new BABYLON.Sound(
+            "backgroundMusic",
+            "assets/other/Hypnotic-Puzzle.mp3",
+            Globals.scene,
+            null,
+            {
+                loop: true,
+                autoplay: true,
+                volume: 0.2
+            }
+        )
+    }
 
-    addModels = () => {
-        // Add BOX
-        boxMesh = BABYLON.MeshBuilder.CreateBox(
-            "box",
-            { height: 1, width: 1, depth: 1 },
-            scene
-        );
-        boxMesh.position.y = 1;
+    disableCameraControl = () => {
+        this.resetCameraPosition();
+        this.arcRotateCamera.detachControl()
+    }
 
-        var woodMaterial = new BABYLON.StandardMaterial("wood", scene);
-        woodMaterial.diffuseTexture = new BABYLON.Texture(
-            "./assets/portal_cube.png",
-            scene
-        );
-        boxMesh.material = woodMaterial;
-    };
+    enableCameraControl = () => {
+        this.resetCameraPosition();
+        this.arcRotateCamera.attachControl(this.canvas, true);
+    }
+
+    resetCameraPosition = () => {
+        this.arcRotateCamera.attachControl(this.canvas, true);
+        this.arcRotateCamera.setPosition(new BABYLON.Vector3(7, 7, 7));
+        this.arcRotateCamera.beta = Math.PI / 2.5;
+    }
 
     render() {
         return (

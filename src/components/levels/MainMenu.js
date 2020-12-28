@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ENVIRONMENT from '../gameObjects/_ENVIRONMENT';
 import Globals from '../../Globals';
 
@@ -16,12 +17,9 @@ import Fence from '../gameObjects/Fence';
 import Character from '../gameObjects/Character';
 
 // UI and Code Engine
-import CodeEngine from '../codeEngine/CodeEngine';
-import LevelTitle from '../uiElements/LevelTitle';
-import LevelInstructions from '../uiElements/LevelInstructions';
 import ObjectivePoint from '../gameObjects/ObjectivePoint';
 
-class LevelTwo extends Component {
+class MainMenu extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -29,8 +27,7 @@ class LevelTwo extends Component {
         }
 
         // Update allowed functions
-        this.allowedBlocks = ["WALK", "TURN", "LOOP"];
-        this.blockCountLimit = 5;
+        this.allowedBlocks = ["WALK", "TURN"];
 
         // level[y][x][z]
         this.level = [ 
@@ -56,18 +53,18 @@ class LevelTwo extends Component {
                 [1, 1, 1, 1, 1],
             ],
             [
-                [3, 3, 3, 3, 3],
-                [2, 2, 2, 2, 3],
-                [2, 2, 2, 2, 3],
-                [2, 2, 2, 2, 3],
-                [2, 2, 2, 2, 3],
+                [2, 2, 2, 2, 2],
+                [2, 3, 3, 3, 2],
+                [2, 2, 2, 3, 2],
+                [2, 2, 2, 3, 2],
+                [2, 2, 2, 2, 2],
             ],
             [
+                [0, 13, 0, 0, 11],
                 [0, 0, 0, 0, 0],
-                [12, 0, 13, 0, 0],
-                [0, 11, 0, 19, 0],
-                [0, 0, 17, 0, 0],
-                [10, 0, 0, 12, 99],
+                [0, 18, 0, 0, 19],
+                [0, 0, 0, 99, 0],
+                [0, 10, 0, 12, 0],
             ]
         ]
         this.yOffset = 3;
@@ -75,7 +72,7 @@ class LevelTwo extends Component {
     }
 
     componentDidMount() {
-        Globals.babylonCanvas.enableCameraControl();
+        Globals.babylonCanvas.disableCameraControl();
     }
 
     spawnEnvironmentItem(x, y, z, type) {
@@ -116,17 +113,22 @@ class LevelTwo extends Component {
         return (
             <div>
                 {/* Level Details */}
-                <div className="levelPanel">
-                    <LevelTitle heading="Level Two" subheading="Loops"/>
-                    <CodeEngine yOffset={this.yOffset} nextLevel="/cg-final-project/level-3"/>
-                    <LevelInstructions>
-                        <b>Loops in code</b><br/>
-                        The loop function allows you to run tasks multiple times.
-                        It eliminates the need to write the same code
-                        over and over again for repetitive tasks. 
-                        In this level, you are only allowed to use five functions.
-                        Use the loop function to your advantage!
-                    </LevelInstructions>
+                <div className="levelPanel mainMenuPanel">
+                    <h1>
+                        Learn<br/>
+                        to<br/>
+                        Code
+                    </h1>
+                    <p>
+                        Learn the concepts of coding by helping the orange guy
+                        walk to the checkpoint.
+                    </p>
+                    <Link
+                        className="btn btn-lg btn-primary btn-block"
+                        to="/cg-final-project/level-1"
+                    >
+                        Start Game
+                    </Link>
                 </div>
 
                 {/* Spawn map environment */}
@@ -150,10 +152,10 @@ class LevelTwo extends Component {
                 }
 
                 {/* Spawn player object */}
-                <Character posX={0} posY={1} posZ={0} yOffset={this.yOffset} faceDirection={2}/>
+                <Character posX={1} posY={1} posZ={1} yOffset={this.yOffset} faceDirection={2}/>
             </div>
         )
     }
 }
 
-export default LevelTwo
+export default MainMenu

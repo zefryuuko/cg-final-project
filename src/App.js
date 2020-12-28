@@ -9,6 +9,7 @@ import './App.css';
 // Levels
 import LevelOne from './components/levels/LevelOne';
 import LevelTwo from './components/levels/LevelTwo';
+import LevelThree from './components/levels/LevelThree';
 
 class App extends Component {
     state = {  }
@@ -28,6 +29,9 @@ class App extends Component {
                             </Route>
                             <Route path="/cg-final-project/level-2">
                                 <LevelTwo/>
+                            </Route>
+                            <Route path="/cg-final-project/level-3">
+                                <LevelThree/>
                             </Route>
                         </Switch>
                     </div>

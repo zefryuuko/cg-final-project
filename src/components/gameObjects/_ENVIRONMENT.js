@@ -8,6 +8,17 @@ class ENVIRONMENT {
     STONE = 1;
     GRASS = 2;
     PATH = 3;
+    WALKED_PATH = 4
+    TREE_1 = 10;
+    TREE_2 = 11;
+    ROCK_1 = 12;
+    ROCK_2 = 13;
+    LARGE_RED_MUSHROOM = 14;
+    SMALL_PURPLE_MUSHROOM = 15;
+    SMALL_YELLOW_MUSHROOM = 16;
+    CAMPFIRE = 17;
+    TENT = 18;
+    FENCE = 19;
     OBJECTIVE = 99;
     
     WALKABLE_BLOCKS = [this.PATH, this.GRASS];

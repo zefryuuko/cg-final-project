@@ -5,6 +5,14 @@ import Globals from '../../Globals';
 // Babylon Objects
 import StoneBlock from '../gameObjects/StoneBlock';
 import GrassBlock from '../gameObjects/GrassBlock';
+import TreeOne from '../gameObjects/TreeOne';
+import TreeTwo from '../gameObjects/TreeTwo';
+import RockOne from '../gameObjects/RockOne';
+import RockTwo from '../gameObjects/RockTwo';
+
+import Campfire from '../gameObjects/Campfire';
+import Tent from '../gameObjects/Tent';
+import Fence from '../gameObjects/Fence';
 import Character from '../gameObjects/Character';
 
 // UI and Code Engine
@@ -52,10 +60,10 @@ class LevelOne extends Component {
             ],
             [
                 [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
+                [0, 0, 19, 0, 0],
                 [0, 0, 0, 0, 99],
                 [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
+                [11, 0, 0, 0, 0],
             ]
         ]
         this.yOffset = 3;
@@ -79,6 +87,20 @@ class LevelOne extends Component {
                 return <GrassBlock posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             case ENVIRONMENT.OBJECTIVE:
                 return <ObjectivePoint posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.TREE_1:
+                return <TreeOne posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.TREE_2:
+                return <TreeTwo posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.ROCK_1:
+                return <RockOne posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.ROCK_2:
+                return <RockTwo posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.CAMPFIRE:
+                return <Campfire posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.TENT:
+                return <Tent posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
+            case ENVIRONMENT.FENCE:
+                return <Fence posX={x} posY={y} posZ={z} yOffset={this.yOffset}/>;
             default:
                 return <div></div>;
         }

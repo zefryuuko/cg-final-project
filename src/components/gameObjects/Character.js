@@ -32,7 +32,6 @@ class Character extends Component {
     }
     
     componentWillUnmount = () => {
-        Globals.character = undefined;
         this.mesh.dispose();
         this.idleAnimation = this.walkingAnimation = null;
     }

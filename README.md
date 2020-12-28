@@ -10,3 +10,4 @@ reeeeee send help pls
 - Textures: Pixelz by PixelPerfectGFC on [Planet Minecraft](https://www.planetminecraft.com/texture-pack/pixelz-4829706/)
 - 3D Models: Simple Low Poly Nature Pack by NeutronCat on [Unity Asset Store](https://assetstore.unity.com/packages/3d/environments/landscapes/simple-low-poly-nature-pack-157552)
 - Character model by [Livander Surya](https://youtube.com/livandergamedev)
+- Music: Hypnotic Puzzle by Eric Matyas on [www.soundimage.org](https://soundimage.org/)

@@ -1,4 +1,6 @@
-# Computer Graphics Final Project
+# Learn to Code
+A web application for people wanting to learn the basic concepts of coding. Written in Javascript using React and Babylon.js.
+
 ![Main Menu](https://github.com/zefryuuko/cg-final-project/blob/main/assets/readme-preview.png?raw=true)
 
 Live Demo: https://zefryuuko.github.io/cg-final-project

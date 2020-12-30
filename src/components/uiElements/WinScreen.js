@@ -6,8 +6,8 @@ class WinScreen extends Component {
         return (
             <div className="winScreen">
                 <h1>Level Passed!</h1>
-                { this.props.children }
-                <p>Congratulations! You passed the first level.</p>
+                { this.props.children}
+                <p>Congratulations! You passed the level.</p>
                 <Link to={this.props.nextLevel} className="btn btn-lg btn-success">{this.props.buttonText ? this.props.buttonText : "Next Level"}</Link>
             </div>
         )
